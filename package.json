@@ -1,0 +1,27 @@
+{
+  "name": "ledmatrix",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "start": "nodewebkit",
+    "build": "cd ./node_modules/yaspm/node_modules/serialport && node-pre-gyp rebuild --runtime=node-webkit --target=0.8.6"
+  },
+  "window": {
+    "toolbar": false,
+    "frame": false
+  },
+  "author": "Ciro S. Costa <ciro9758@gmail.com> (http://www.cirocosta.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "css-loader": "^0.9.0",
+    "jsx-loader": "^0.11.0",
+    "node-pre-gyp": "^0.5.27",
+    "nodewebkit": "^0.8.6",
+    "react": "^0.11.2",
+    "sass-loader": "^0.2.0",
+    "style-loader": "^0.8.0",
+    "webpack": "^1.4.3",
+    "yaspm": "0.0.2"
+  }
+}
