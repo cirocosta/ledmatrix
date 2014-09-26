@@ -7,21 +7,25 @@
 require('./Gui.scss');
 
 var React = require('react');
-var gui = require('nw.gui');
+var ApplicationActions = require('../actions/ApplicationActions.js');
 
 var Gui = React.createClass({
+  propTypes: {
+    windowState: React.PropTypes.object.isRequired
+  },
   handleClick (e) {
     e && e.preventDefault();
-
-    switch (e.target.dataset) {
+    switch (e.target.dataset.name) {
       case 'min':
-
+        guiWindow.minimize();
       break;
 
       case 'max':
+        ApplicationActions.toggleMaximization();
       break;
 
       case 'close':
+        guiWindow.close();
       break;
 
       default:

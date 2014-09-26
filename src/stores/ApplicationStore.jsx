@@ -3,9 +3,14 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
+var gui = require('nw.gui');
 
 var CHANGE_EVENT = 'change';
 var _matrix = [];
+var _windowState = {
+  maximized: false,
+  minimized: false
+};
 
 /**
  * Registers itself with AppDispatcher so that
@@ -14,9 +19,13 @@ var _matrix = [];
  * `dispatch` method.
  */
 
-var MatrixStore = merge(EventEmitter.prototype, {
+var ApplicationStore = merge(EventEmitter.prototype, {
   getMatrix () {
     return _matrix;
+  },
+
+  getWindowState () {
+    return _windowState;
   },
 
   emitChange () {
@@ -35,14 +44,19 @@ var MatrixStore = merge(EventEmitter.prototype, {
     var action = payload.action;
     var matrix;
 
-    // switch (action.actionType) {
-    //   case MatrixConstants.MATRIX_CREATE:
-
-    // }
+    switch (action.actionType) {
+      case "toggleMaximization":
+        if(_windowState.maximized){;
+          gui.Window.get().unmaximize();
+        }else{
+          gui.Window.get().maximize();
+        }
+        _windowState.maximized = !_windowState.maximized;
+    }
 
     return true;
-  });
+  })
 });
 
 
-module.exports = MatrixStore;
+module.exports = ApplicationStore;
