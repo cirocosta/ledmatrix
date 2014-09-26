@@ -9,7 +9,6 @@ var CHANGE_EVENT = 'change';
 var _matrix = [];
 var _windowState = {
   maximized: false,
-  minimized: false
 };
 
 /**
@@ -52,6 +51,7 @@ var ApplicationStore = merge(EventEmitter.prototype, {
           gui.Window.get().maximize();
         }
         _windowState.maximized = !_windowState.maximized;
+        ApplicationStore.emitChange();
     }
 
     return true;

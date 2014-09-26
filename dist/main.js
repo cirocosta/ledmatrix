@@ -114,7 +114,7 @@
 	  },
 	
 	  _onChange:function () {
-	    this.setState(getApplicationState);
+	    this.setState(getApplicationState());
 	  }
 	});
 	
@@ -185,6 +185,7 @@
 	
 	var React = __webpack_require__(/*! react */ 2);
 	var ApplicationActions = __webpack_require__(/*! ../actions/ApplicationActions.js */ 161);
+	var gui = __webpack_require__(/*! nw.gui */ 5);
 	
 	var Gui = React.createClass({displayName: 'Gui',
 	  propTypes: {
@@ -194,7 +195,7 @@
 	    e && e.preventDefault();
 	    switch (e.target.dataset.name) {
 	      case 'min':
-	        guiWindow.minimize();
+	        gui.Window.get().minimize();
 	      break;
 	
 	      case 'max':
@@ -202,11 +203,11 @@
 	      break;
 	
 	      case 'close':
-	        guiWindow.close();
+	        gui.Window.get().close();
 	      break;
 	
 	      default:
-	      throw new Error(e.target.dataset + ' is not supported.');
+	      throw new Error(e.target.dataset.name + ' is not supported.');
 	    }
 	  },
 	
@@ -222,7 +223,7 @@
 	          React.DOM.li({onClick: this.handleClick, 
 	              'data-name': "max", 
 	              key: 2}, 
-	            "max"
+	              this.props.windowState.maximized ? 'unmax': 'max'
 	          ), 
 	          React.DOM.li({onClick: this.handleClick, 
 	              'data-name': "close", 
@@ -20001,7 +20002,6 @@
 	var _matrix = [];
 	var _windowState = {
 	  maximized: false,
-	  minimized: false
 	};
 	
 	/**
@@ -20044,6 +20044,7 @@
 	          gui.Window.get().maximize();
 	        }
 	        _windowState.maximized = !_windowState.maximized;
+	        ApplicationStore.emitChange();
 	    }
 	
 	    return true;

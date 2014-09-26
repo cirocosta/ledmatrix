@@ -43,7 +43,7 @@ var Application = React.createClass({
   },
 
   _onChange () {
-    this.setState(getApplicationState);
+    this.setState(getApplicationState());
   }
 });
 

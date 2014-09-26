@@ -8,6 +8,7 @@ require('./Gui.scss');
 
 var React = require('react');
 var ApplicationActions = require('../actions/ApplicationActions.js');
+var gui = require('nw.gui');
 
 var Gui = React.createClass({
   propTypes: {
@@ -17,7 +18,7 @@ var Gui = React.createClass({
     e && e.preventDefault();
     switch (e.target.dataset.name) {
       case 'min':
-        guiWindow.minimize();
+        gui.Window.get().minimize();
       break;
 
       case 'max':
@@ -25,11 +26,11 @@ var Gui = React.createClass({
       break;
 
       case 'close':
-        guiWindow.close();
+        gui.Window.get().close();
       break;
 
       default:
-      throw new Error(e.target.dataset + ' is not supported.');
+      throw new Error(e.target.dataset.name + ' is not supported.');
     }
   },
 
@@ -45,7 +46,7 @@ var Gui = React.createClass({
           <li onClick={this.handleClick}
               data-name="max"
               key={2}>
-            max
+              {this.props.windowState.maximized ? 'unmax': 'max'}
           </li>
           <li onClick={this.handleClick}
               data-name="close"
