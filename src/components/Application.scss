@@ -1,0 +1,18 @@
+$base__font-size: 62.5%;
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: $base__font-size;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+body {
+  margin: auto;
+  width: 60rem;
+}
