@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "nodewebkit",
-    "build": "cd ./node_modules/yaspm/node_modules/serialport && node-pre-gyp rebuild --runtime=node-webkit --target=0.8.6"
+    "postinstall": "./postinstall.sh"
   },
   "window": {
     "toolbar": false,

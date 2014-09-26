@@ -8,6 +8,10 @@ module.exports = {
     path: __dirname + '/dist',
     filename: 'main.js',
   },
+  externals: {
+    yaspm: 'commonjs yaspm'
+  },
+  target: 'node-webkit',
   module: {
     loaders: [
       {
