@@ -2,7 +2,7 @@
 
 var webpack = require('webpack');
 
-module.exports = {
+var cfg = {
   entry: './src/main.jsx',
   output: {
     path: __dirname + '/dist',
@@ -11,7 +11,7 @@ module.exports = {
   externals: {
     yaspm: 'commonjs yaspm'
   },
-  target: 'node-webkit',
+  target: process.env.NODE_ENV === 'web' ? 'web' : 'node-webkit',
   module: {
     loaders: [
       {
@@ -37,3 +37,5 @@ module.exports = {
     })
   ]
 };
+
+module.exports = cfg;

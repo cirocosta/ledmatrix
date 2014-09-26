@@ -1,12 +1,10 @@
 $grid__columns--number: 8;
-
 // set the width/max-width of our inner content
 
 .grid {
   width: 100%;
   max-width: 120rem;
 }
-
 
 // do not let content overflow onto other rows
 
@@ -36,6 +34,9 @@ $grid__columns--number: 8;
   padding: 1.2rem;
 }
 
+.grid__col--center {
+  text-align: center;
+}
 
 @for $i from 1 through $grid__columns--number {
   .grid__col--#{$i} {
