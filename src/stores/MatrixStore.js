@@ -11,6 +11,26 @@ var MATRIX_SIZE = 10;
 var _INITIAL_MATRIX = [];
 var _matrix;
 
+/**
+ * Converts a matrix (array of arrays) to a
+ * string representation of integers
+ * representing its rows as binary digits.
+ */
+var matrixToInt = (matrix) => {
+  var N = matrix.length;
+  var repr = [];
+
+  for (var i = 0; i < N; i++) {
+    repr.push(parseInt(matrix[i].join(''), 2));
+    repr.push(',');
+  }
+
+  return repr.join('');
+};
+
+/**
+ * Populating the matrix
+ */
 for(var i=0; i<MATRIX_SIZE; i++) {
   _INITIAL_MATRIX[i] = [];
   for(var j=0; j<MATRIX_SIZE; j++) {
@@ -18,6 +38,10 @@ for(var i=0; i<MATRIX_SIZE; i++) {
   }
 }
 
+/**
+ * Create a stateful _matrix, different object
+ * from _INITIAL_MATRIX - never touched.
+ */
 _matrix = clone(_INITIAL_MATRIX);
 
 /**

@@ -1,0 +1,12 @@
+.Settings {
+  font-height: 1.7;
+  font-size: 3rem;
+
+  li {
+    cursor: pointer;
+
+    &:hover {
+      color: #A0A0A0;
+    }
+  }
+}

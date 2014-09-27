@@ -2,5 +2,6 @@
 
 module.exports = {
   Gui: require('./GuiActions'),
-  Matrix: require('./MatrixActions')
+  Matrix: require('./MatrixActions'),
+  Settings: require('./SettingsActions')
 };
