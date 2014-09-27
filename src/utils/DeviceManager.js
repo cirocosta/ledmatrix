@@ -19,7 +19,6 @@ function init () {
       device
         .connect()
         .on('connect', handleConnect.bind(null, device))
-        .on('data', handleData.bind(null, device))
         .on('disconnect', handleDisconnect.bind(null, device));
     })
     .on('removeddevice', handleDisconnect);
