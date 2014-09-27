@@ -84,8 +84,6 @@ var Main = React.createClass({
 
       if (!this.state.snake) {
         _game = SnakeGame.prepare(10, 10, _cbObj, this.handleFruitEat, this.handleCrash);
-        console.log(this.gameTick);
-
         _rAFid = requestAnimationFrame(this.gameTick);
         snake = true;
       }
@@ -93,7 +91,7 @@ var Main = React.createClass({
       detachKeyHandlers();
       cancelAnimationFrame(_rAFid);
 
-      _rAFid = 0;
+      _rAFid = null;
       snake = false;
     }
 
@@ -143,7 +141,8 @@ var Main = React.createClass({
       return;
 
     this.gameTime._then = this.gameTime._now - (this.gameTime._delta % this.gameTime._interval);
-    this.setState(update(this.state, {matrix: {$set: _game.next()}}));
+
+    Actions.Matrix.updateMatrix(update(this.state, {matrix: {$set: _game.next()}}));
   },
 
   handleCrash () {

@@ -25,4 +25,6 @@ function init () {
     .on('removeddevice', handleDisconnect);
 }
 
-module.exports = init;
+module.exports = {
+  init: init
+};
