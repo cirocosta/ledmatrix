@@ -2,22 +2,15 @@
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
+var CONSTANTS = require('../constants/Constants');
 var merge = require('react/lib/merge');
 var gui = require('nw.gui');
 
 var CHANGE_EVENT = 'change';
-var MATRIX_SIZE = 10;
-var _matrix = [];
 var _windowState = {
   maximized: false,
 };
 
-for(var i=0; i<MATRIX_SIZE; i++) {
-  _matrix[i] = [];
-  for(var j=0; j<MATRIX_SIZE; j++) {
-    _matrix[i].push(0);
-  }
-}
 
 /**
  * Registers itself with AppDispatcher so that
@@ -26,9 +19,7 @@ for(var i=0; i<MATRIX_SIZE; i++) {
  * `dispatch` method.
  */
 
-var ApplicationStore = merge(EventEmitter.prototype, {
-  getMatrix: () => _matrix,
-
+var AppStore = merge(EventEmitter.prototype, {
   getWindowState: () => _windowState,
 
   emitChange () {
@@ -45,18 +36,17 @@ var ApplicationStore = merge(EventEmitter.prototype, {
 
   dispatcherIndex: AppDispatcher.register((payload) => {
     var action = payload.action;
-    var matrix;
 
     switch (action.actionType) {
-      case "toggleMaximization":
+      case CONSTANTS.Gui.TOGGLE_MAXIMIZATION:
         if(_windowState.maximized)
           gui.Window.get().unmaximize();
         else
           gui.Window.get().maximize();
 
         _windowState.maximized = !_windowState.maximized;
-        ApplicationStore.emitChange();
-      break;
+        AppStore.emitChange();
+        break;
     }
 
     return true;
@@ -64,4 +54,4 @@ var ApplicationStore = merge(EventEmitter.prototype, {
 });
 
 
-module.exports = ApplicationStore;
+module.exports = AppStore;

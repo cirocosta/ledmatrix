@@ -7,7 +7,7 @@
 require('./Gui.scss');
 
 var React = require('react');
-var ApplicationActions = require('../actions/ApplicationActions.js');
+var Actions = require('../actions/Actions');
 var gui = require('nw.gui');
 
 var Gui = React.createClass({
@@ -23,7 +23,7 @@ var Gui = React.createClass({
       break;
 
       case 'max':
-        ApplicationActions.toggleMaximization();
+        Actions.Gui.toggleMaximization();
       break;
 
       case 'close':
