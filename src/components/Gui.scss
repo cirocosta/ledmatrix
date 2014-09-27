@@ -1,11 +1,15 @@
 .Gui {
   text-align: right;
+  -webkit-app-region: drag;
+  cursor: move;
 
   ul {
     padding: 1.5rem 0;
     background-color: #F0F0F0;
 
     li {
+      cursor: pointer;
+      -webkit-app-region: no-drag;
       display: inline;
       list-style-type: none;
       padding-right: 2rem;

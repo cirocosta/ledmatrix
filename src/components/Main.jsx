@@ -10,12 +10,15 @@ var React = require('react');
 var Matrix = require('react-matrix/dist/react-matrix.js');
 
 var Main = React.createClass({
-  handleMatrixClick (cellState) {
-    console.log(cellState);
-    var y = (cellState.y);
-    var x = (cellState.x);
-
+  propTypes: {
+    matrix: React.PropTypes.array
   },
+
+  handleCellClick (cellState) {
+    var x = (cellState.y);
+    var y = (cellState.x);
+  },
+
   render () {
     return (
       <main className="Main grid">

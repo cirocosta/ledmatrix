@@ -14,6 +14,7 @@ var Gui = React.createClass({
   propTypes: {
     windowState: React.PropTypes.object.isRequired
   },
+
   handleClick (e) {
     e && e.preventDefault();
     switch (e.target.dataset.name) {

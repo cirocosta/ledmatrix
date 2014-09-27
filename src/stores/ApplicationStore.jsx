@@ -27,13 +27,9 @@ for(var i=0; i<MATRIX_SIZE; i++) {
  */
 
 var ApplicationStore = merge(EventEmitter.prototype, {
-  getMatrix () {
-    return _matrix;
-  },
+  getMatrix: () => _matrix,
 
-  getWindowState () {
-    return _windowState;
-  },
+  getWindowState: () => _windowState,
 
   emitChange () {
     this.emit(CHANGE_EVENT);
@@ -53,13 +49,14 @@ var ApplicationStore = merge(EventEmitter.prototype, {
 
     switch (action.actionType) {
       case "toggleMaximization":
-        if(_windowState.maximized){;
+        if(_windowState.maximized)
           gui.Window.get().unmaximize();
-        }else{
+        else
           gui.Window.get().maximize();
-        }
+
         _windowState.maximized = !_windowState.maximized;
         ApplicationStore.emitChange();
+      break;
     }
 
     return true;
