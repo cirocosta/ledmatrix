@@ -17,11 +17,13 @@ var Settings = React.createClass({
   handleClick (e) {
     switch (e.target.dataset.name) {
       case 'snake':
-      Actions.Settings.startSnake(CONSTANTS.Settings.START_SNAKE);
+      Actions.Settings.changeMatrixManager(CONSTANTS.Settings.SNAKE);
       break;
-      case 'click':
 
+      case 'click':
+      Actions.Settings.changeMatrixManager(CONSTANTS.Settings.CLICK);
       break;
+
       case 'pre':
       Actions.Settings.changeVisualization(CONSTANTS.Settings.TYPE_PRE_MATRIX);
       break;

@@ -23,6 +23,13 @@ var SettingsActions = {
       actionType: CONSTANTS.Settings.CHANGE_VISUALIZATION,
       type: type
     });
+  },
+
+  changeMatrixManager (who) {
+    AppDispatcher.handleViewAction({
+      actionType: CONSTANTS.Settings.CHANGE_MATRIX_MANAGER,
+      who: who
+    });
   }
 };
 

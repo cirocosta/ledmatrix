@@ -10,8 +10,8 @@ module.exports = keyMirror({
   TYPE_PRE_MATRIX: null,
   TYPE_REACT_MATRIX: null,
 
-  SNAKE: null,
-  SNAKE_START: null,
+  CHANGE_MATRIX_MANAGER: null,
 
-  CLICK: null
+  SNAKE: null,
+  CLICK: null,
 });

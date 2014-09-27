@@ -4,12 +4,15 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var CONSTANTS = require('../constants/Constants');
 var merge = require('react/lib/merge');
+
 var clone = (obj) => JSON.parse(JSON.stringify(obj));
 
 var CHANGE_EVENT = 'change';
 var MATRIX_SIZE = 10;
 var _INITIAL_MATRIX = [];
 var _matrix;
+var _manager = CONSTANTS.Matrix.CLICK_MANAGER;
+
 
 /**
  * Converts a matrix (array of arrays) to a
@@ -81,6 +84,7 @@ var MatrixStore = merge(EventEmitter.prototype, {
     return true;
   })
 });
+
 
 
 module.exports = MatrixStore;

@@ -9,7 +9,7 @@ var CHANGE_EVENT = 'change';
 var _settings = {
   devices: [],
   visualization: CONSTANTS.Settings.TYPE_REACT_MATRIX,
-  matrixControl: CONSTANTS.Settings.CLICK
+  matrixManager: CONSTANTS.Settings.CLICK
 };
 
 /**
@@ -52,6 +52,10 @@ var SettingsStore = merge(EventEmitter.prototype, {
 
       case CONSTANTS.Settings.CHANGE_VISUALIZATION:
         _settings.visualization = action.type;
+        SettingsStore.emitChange();
+
+      case CONSTANTS.Settings.CHANGE_MATRIX_MANAGER:
+        _settings.matrixManager = action.who;
         SettingsStore.emitChange();
     }
 

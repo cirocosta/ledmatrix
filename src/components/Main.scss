@@ -1,5 +1,15 @@
 @import 'grid';
 
 .Main {
-
+  .reset {
+    border: 0;
+    background: steelblue;
+    color: white;
+    width: 18rem;
+    height: 3rem;
+    margin-top: 2rem;
+    font-weight: 900;
+    font-size: 2rem;
+    cursor: pointer;
+  }
 }

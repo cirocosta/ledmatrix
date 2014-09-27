@@ -18,18 +18,19 @@
   "author": "Ciro S. Costa <ciro9758@gmail.com> (http://www.cirocosta.com/)",
   "license": "MIT",
   "dependencies": {
+    "bower": "^1.3.11",
     "css-loader": "^0.9.0",
     "jsx-loader": "^0.11.0",
-    "matrix-snake": "0.0.1",
+    "keymaster": "^1.6.2",
+    "matrix-snake": "0.0.2",
     "node-pre-gyp": "^0.5.27",
     "nodewebkit": "^0.8.6",
+    "nw-gyp": "^0.12.2",
     "react": "^0.11.2",
     "react-matrix": "0.0.2",
     "sass-loader": "^0.2.0",
     "style-loader": "^0.8.0",
     "webpack": "^1.4.3",
-    "yaspm": "0.0.2",
-    "bower": "^1.3.11",
-    "nw-gyp": "^0.12.2"
+    "yaspm": "0.0.2"
   }
 }
