@@ -9,10 +9,11 @@ process.env.NODE_ENV !== 'web' && require('../utils/DeviceManager').init();
 
 var CHANGE_EVENT = 'change';
 var _settings = {
-  devices: ['device1'],
+  devices: [],
   visualization: CONSTANTS.Settings.TYPE_REACT_MATRIX,
   matrixManager: CONSTANTS.Settings.CLICK
 };
+
 
 /**
  * Registers itself with AppDispatcher so that

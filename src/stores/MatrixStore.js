@@ -12,6 +12,7 @@ var MATRIX_SIZE = 10;
 var _INITIAL_MATRIX = [];
 var _matrix;
 var _manager = CONSTANTS.Matrix.CLICK_MANAGER;
+var _devices = [];
 
 
 /**
@@ -77,6 +78,25 @@ var MatrixStore = merge(EventEmitter.prototype, {
     switch (action.actionType) {
       case CONSTANTS.Matrix.UPDATE:
         _matrix = action.matrix.matrix;
+        var repr = matrixToInt(_matrix);
+
+        if (_devices.length)
+          _devices.forEach((device) => {
+            console.log(device);
+          });
+
+        console.log(repr);
+
+        MatrixStore.emitChange();
+        break;
+
+      case CONSTANTS.Settings.ADD_DEVICE:
+        _devices.push(payload.device);
+        MatrixStore.emitChange();
+        break;
+
+      case CONSTANTS.Settings.REMOVE_DEVICE:
+        delete _devices[payload.id];
         MatrixStore.emitChange();
         break;
     }
