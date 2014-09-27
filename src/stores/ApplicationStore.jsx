@@ -6,10 +6,18 @@ var merge = require('react/lib/merge');
 var gui = require('nw.gui');
 
 var CHANGE_EVENT = 'change';
+var MATRIX_SIZE = 10;
 var _matrix = [];
 var _windowState = {
   maximized: false,
 };
+
+for(var i=0; i<MATRIX_SIZE; i++) {
+  _matrix[i] = [];
+  for(var j=0; j<MATRIX_SIZE; j++) {
+    _matrix[i].push(0);
+  }
+}
 
 /**
  * Registers itself with AppDispatcher so that
