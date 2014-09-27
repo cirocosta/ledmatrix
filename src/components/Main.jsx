@@ -49,24 +49,20 @@ var detachKeyHandlers = () => {
   });
 };
 
-var getState = () => {
-  var matrix = MatrixStore.getMatrix();
-  var settings = SettingsStore.getSettingsState();
-
-  return {
-    matrix: matrix,
-    settings: settings,
-    fruits: 0,
-    crashes: 0
-  };
-};
-
 var Main = React.createClass({
   /**
    * Lifecycle and store changes
    */
 
-  getInitialState: () => getState(),
+  getInitialState () {
+    return {
+      matrix: MatrixStore.getMatrix(),
+      settings: SettingsStore.getSettingsState(),
+      fruits: 0,
+      crashes: 0,
+      snake: false
+    }
+  },
 
   componentDidMount () {
     MatrixStore.addChangeListener(this.handleChange);
@@ -77,6 +73,38 @@ var Main = React.createClass({
     MatrixStore.removeChangeListener(this.handleChange);
     SettingsStore.removeChangeListener(this.handleChange);
   },
+
+  handleChange () {
+    var matrix = MatrixStore.getMatrix();
+    var settings = SettingsStore.getSettingsState();
+    var snake = this.state.snake;
+
+    if (settings.matrixManager === CONSTANTS.Settings.SNAKE) {
+      attachKeyHandlers();
+
+      if (!this.state.snake) {
+        _game = SnakeGame.prepare(10, 10, _cbObj, this.handleFruitEat, this.handleCrash);
+        this.gameTick();
+        snake = true;
+      }
+    } else {
+      detachKeyHandlers();
+      cancelAnimationFrame(_rAFid);
+
+      _rAFid = 0;
+      snake = false;
+    }
+
+    this.setState(update(this.state, {
+      matrix: {$set: matrix},
+      settings: {$set: settings},
+      snake: {$set: snake},
+    }));
+  },
+
+  /**
+   * Click
+   */
 
   handleCellClick (cellState) {
     var x = (cellState.y);
@@ -90,20 +118,6 @@ var Main = React.createClass({
     Actions.Matrix.updateMatrix(update(
       {matrix: MatrixStore.getInitialMatrix()},
       updateRow));
-  },
-
-  handleChange () {
-    this.setState(getState());
-
-    if (this.state.settings.matrixManager === CONSTANTS.Settings.SNAKE) {
-      attachKeyHandlers();
-      _game = SnakeGame.prepare(10, 10, _cbObj, this.handleFruitEat, this.handleCrash);
-      this.gameTick();
-    } else {
-      detachKeyHandlers();
-      cancelAnimationFrame(_rAFid);
-      _rAFid = 0;
-    }
   },
 
   /**

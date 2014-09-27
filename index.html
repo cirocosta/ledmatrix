@@ -6,7 +6,8 @@
 </head>
 <body>
   <script>
-    require('nw.gui').Window.get().showDevTools();
+    if (typeof exports === 'object')
+      require('nw.gui').Window.get().showDevTools();
   </script>
   <script src="dist/main.js"></script>
 </body>

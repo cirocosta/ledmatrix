@@ -11,3 +11,5 @@ React.renderComponent(
   <Application />,
   document.body
 );
+
+window.React = React;

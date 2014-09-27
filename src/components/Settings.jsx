@@ -51,10 +51,19 @@ var Settings = React.createClass({
       <li key={4} data-name="pre" onClick={this.handleClick}>Pre</li> :
       <li key={4} data-name="matrix" onClick={this.handleClick}>Matrix</li>;
 
+    var devices = !this.state.devices.length ?
+      <li>No devices</li> :
+      this.state.devices.map((device, i) => <li key={i*10}>Device {i}</li>);
+
     return (
       <ul className="Settings">
         <li key={1}
-            data-name="devices">Devices</li>
+            data-name="devices">
+          Devices
+          <ul className="devices">
+            {devices}
+          </ul>
+        </li>
         <li key={2}
             data-name="snake"
             onClick={this.handleClick}>

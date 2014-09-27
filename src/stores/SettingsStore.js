@@ -5,9 +5,11 @@ var EventEmitter = require('events').EventEmitter;
 var CONSTANTS = require('../constants/Constants');
 var merge = require('react/lib/merge');
 
+process.env.NODE_ENV !== 'web' && require('../utils/DeviceManager').init();
+
 var CHANGE_EVENT = 'change';
 var _settings = {
-  devices: [],
+  devices: ['device1'],
   visualization: CONSTANTS.Settings.TYPE_REACT_MATRIX,
   matrixManager: CONSTANTS.Settings.CLICK
 };
@@ -53,10 +55,12 @@ var SettingsStore = merge(EventEmitter.prototype, {
       case CONSTANTS.Settings.CHANGE_VISUALIZATION:
         _settings.visualization = action.type;
         SettingsStore.emitChange();
+        break;
 
       case CONSTANTS.Settings.CHANGE_MATRIX_MANAGER:
         _settings.matrixManager = action.who;
         SettingsStore.emitChange();
+        break;
     }
 
     return true;
