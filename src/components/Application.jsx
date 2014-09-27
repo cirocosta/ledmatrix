@@ -35,9 +35,13 @@ var Application = React.createClass({
   },
 
   render () {
+    var gui = Gui ?
+      <Gui windowState={this.state.windowState} /> :
+      null;
+
     return (
       <div>
-        <Gui windowState={this.state.windowState} />
+        {gui}
         <Main />
       </div>
     );

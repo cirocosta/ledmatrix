@@ -4,7 +4,10 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var CONSTANTS = require('../constants/Constants');
 var merge = require('react/lib/merge');
-var gui = require('nw.gui');
+
+var gui = process.env.NODE_ENV !== 'web' ?
+  require('nw.gui') :
+  function () {};
 
 var CHANGE_EVENT = 'change';
 var _windowState = {
