@@ -82,16 +82,14 @@ var MatrixStore = merge(EventEmitter.prototype, {
 
         if (_devices.length)
           _devices.forEach((device) => {
-            console.log(device);
+            device.write(repr);
           });
-
-        console.log(repr);
 
         MatrixStore.emitChange();
         break;
 
       case CONSTANTS.Settings.ADD_DEVICE:
-        _devices.push(payload.device);
+        _devices.push(action.device);
         MatrixStore.emitChange();
         break;
 

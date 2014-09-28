@@ -127,7 +127,7 @@ var Main = React.createClass({
   gameTime: {
     _now: null,
     _then: Date.now(),
-    _interval: 1000/10,
+    _interval: 1000/15,
     _delta: null
   },
 

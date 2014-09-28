@@ -33,7 +33,7 @@ function fakeInit () {
   var device = new yaspm.FakeDevice();
   device.getInfo = () => {
     return {
-      pnpId: 'dahora'
+      pnpId: 'arduino-fake-pnpId'
     };
   };
 

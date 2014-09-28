@@ -11,7 +11,7 @@ var SettingsActions = {
   addDevice (device) {
     AppDispatcher.handleDeviceAction({
       actionType: CONSTANTS.Settings.ADD_DEVICE,
-      device: device
+      device: device.device
     });
   },
 
