@@ -14,23 +14,32 @@ var _matrix;
 var _manager = CONSTANTS.Matrix.CLICK_MANAGER;
 var _devices = [];
 
+/**
+ * Converts a number to a fixed length
+ * hexadecimal string.
+ */
+var intToFixedHex = function (num, size) {
+  var res = Number(num).toString(16);
+
+  while (res.length < size)
+    res = '0' + res;
+
+  return res;
+};
 
 /**
- * Converts a matrix (array of arrays) to a
- * string representation of integers
- * representing its rows as binary digits.
+ * Converts a matrix to a fixed length string of
+ * hex decimal values.
  */
-var matrixToInt = (matrix) => {
+var matrixToHex = (matrix) => {
   var N = matrix.length;
   var repr = [];
 
-  for (var i = 0; i < N; i++) {
-    repr.push(parseInt(matrix[i].join(''), 2));
-    repr.push(',');
-  }
+  for (var i = 0; i < N; i++)
+    repr.push(intToFixedHex(parseInt(matrix[i].join(''), 2), 3));
 
   return repr.join('');
-};
+}
 
 /**
  * Populating the matrix
@@ -78,7 +87,9 @@ var MatrixStore = merge(EventEmitter.prototype, {
     switch (action.actionType) {
       case CONSTANTS.Matrix.UPDATE:
         _matrix = action.matrix.matrix;
-        var repr = matrixToInt(_matrix);
+        var repr = matrixToHex(_matrix);
+
+        console.log(repr);
 
         if (_devices.length)
           _devices.forEach((device) => {

@@ -6,8 +6,8 @@
   "scripts": {
     "start": "nodewebkit",
     "postinstall": "./postinstall.sh",
-    "build-nodewebkit": "NODE_ENV=nodewebkit webpack -p",
-    "build-web": "NODE_ENV=web webpack -p"
+    "build-nodewebkit": "NODE_ENV=nodewebkit webpack -p --progress",
+    "build-web": "NODE_ENV=web webpack -p --progress"
   },
   "window": {
     "toolbar": false,
