@@ -7,13 +7,19 @@ require('./Settings.scss');
 var React = require('react');
 var CONSTANTS = require('../constants');
 var {storesGlueMixin} = require('../mixins');
-var {AppStore} = require('../stores');
+var {AppStore, DeviceStore} = require('../stores');
 var {AppActions} = require('../actions');
+var assign = require('object-assign');
+
+console.log(require('../stores'));
 
 var Settings = React.createClass({
-  mixins: [storesGlueMixin(AppStore)],
+  mixins: [storesGlueMixin(AppStore, DeviceStore)],
 
-  getStateFromStores: AppStore.getAppState,
+  // TODO do a better thing for this ...
+  getStateFromStores () {
+    return assign({}, AppStore.getAppState(), DeviceStore.getDevicesState());
+  },
 
   handleClick (e) {
     switch (e.target.dataset.name) {
@@ -35,19 +41,29 @@ var Settings = React.createClass({
     }
   },
 
+  _getDevices () {
+    var ids = Object.keys(this.state.devices);
+    var devicesElem = ids.length ?
+      ids.map((id, i) => <li key={i}>{id}</li>) :
+      <li>No Devices :(</li>;
+
+    return devicesElem;
+  },
+
   render () {
     // var vis = this.state.visualization !== CONSTANTS.App.VISUALIZATION_PRE_MATRIX ?
     //   <li key={4} data-name="pre" onClick={this.handleClick}>Pre</li> :
     //   <li key={4} data-name="matrix" onClick={this.handleClick}>Matrix</li>;
 
-    // var devices = !this.state.devices.length ?
-    //   <li>No devices</li> :
-    //   this.state.devices.map((device, i) => <li key={i*10}>Device {i}</li>);
+    console.log(this.state);
 
     return (
       <article className="Settings">
         <h1>SETTINGS</h1>
-        <p>Device connected: <span>Device ID</span></p>
+        <p>Devices connected:</p>
+        <ul>
+          {this._getDevices()}
+        </ul>
 
         <section>
           <h2>Visualization</h2>

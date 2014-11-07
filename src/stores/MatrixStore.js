@@ -69,7 +69,11 @@ _matrix = clone(_INITIAL_MATRIX);
  */
 
 var MatrixStore = assign({
-  getMatrix: () => _matrix,
+  getMatrixState () {
+    return {
+      matrix: _matrix
+    }
+  },
 
   getInitialMatrix: () => _INITIAL_MATRIX,
 

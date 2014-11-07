@@ -1,5 +1,5 @@
 var yaspm = require('yaspm');
-var Machines = yaspm.Machines('grbl');
+var Machines = yaspm.Machines('');
 var {DeviceActions} = require('../actions');
 var _devices = [];
 
@@ -8,7 +8,7 @@ function handleConnect (device) {
 }
 
 function handleDisconnect (id) {
-  DeviceActions.removeDevice({id: id});
+  DeviceActions.removeDevice(id);
 }
 
 function init () {

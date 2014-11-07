@@ -31,9 +31,7 @@ var cfg = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
-      }
+      '__NODEWEBKIT__': process.env.NODE_ENV === 'nodewebkit',
     })
   ]
 };

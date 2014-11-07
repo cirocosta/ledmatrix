@@ -1,8 +1,6 @@
 var CONSTANTS = require('../constants');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 
-console.log(CONSTANTS);
-
 var AppActions = {
   toggleMaximization () {
     AppDispatcher.handleViewAction({

@@ -1,24 +1,2 @@
 .Settings {
-  font-height: 1.7;
-  font-size: 3rem;
-
-  li {
-    cursor: pointer;
-
-    &:hover {
-      color: #A0A0A0;
-    }
-  }
-
-  .devices {
-    li {
-      line-style-type: circle;
-      margin-left: 4rem;
-      color: #A0A0A0;
-
-      &:hover {
-        color: black;
-      }
-    }
-  }
 }

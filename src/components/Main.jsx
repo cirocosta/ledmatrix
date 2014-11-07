@@ -2,6 +2,10 @@
  * @jsx React.DOM
  */
 
+/**
+ * Keeps a well structured 2 blocks main view.
+ */
+
 require('./Main.scss');
 require('react-matrix/dist/react-matrix.css');
 
@@ -9,6 +13,7 @@ var React = require('react/addons');
 var CONSTANTS = require('../constants');
 var PreMatrix = require('./PreMatrix.jsx');
 var Matrix = require('react-matrix/dist/react-matrix.js');
+var Visual = require('./Visual.jsx');
 var Settings = require('./Settings.jsx');
 var Actions = require('../actions');
 // var MatrixStore = require('../stores/MatrixStore');
@@ -192,12 +197,10 @@ var Main = React.createClass({
       <main className="Main grid">
         <div className="grid__row">
           <div className="grid__col--4 grid__col--center">
-            {/* mtx */}
-            <h1>Matrix</h1>
+            <Visual />
           </div>
           <div className="grid__col--4 grid__col--center">
             <Settings />
-            {/* gameBtn */}
           </div>
         </div>
       </main>
