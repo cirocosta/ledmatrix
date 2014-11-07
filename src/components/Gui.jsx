@@ -2,12 +2,11 @@
  * @jsx React.DOM
  */
 
-'use strict';
-
 require('./Gui.scss');
 
 var React = require('react');
 var gui = require('nw.gui');
+var CONSTANTS = require('../constants');
 var {AppStore} = require('../stores');
 var {AppActions} = require('../actions');
 var {storesGlueMixin} = require('../mixins');

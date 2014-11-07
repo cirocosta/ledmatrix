@@ -1,6 +1,6 @@
-var {keyMirror} = require('../utils');
+var keyMirror = require('../utils/keyMirror');
 
-module.exports = keyMirror({
+module.exports = keyMirror('DEVICE', {
   ADD: false,
   UPDATE: false
 });

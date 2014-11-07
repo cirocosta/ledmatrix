@@ -2,78 +2,77 @@
  * @jsx React.DOM
  */
 
-'use strict';
-
 require('./Settings.scss');
 
 var React = require('react');
-var SettingsStore = require('../stores/SettingsStore');
 var CONSTANTS = require('../constants');
-var Actions = require('../actions');
+var {storesGlueMixin} = require('../mixins');
+var {AppStore} = require('../stores');
+var {AppActions} = require('../actions');
 
 var Settings = React.createClass({
-  getInitialState: () => SettingsStore.getSettingsState(),
+  mixins: [storesGlueMixin(AppStore)],
+
+  getStateFromStores: AppStore.getAppState,
 
   handleClick (e) {
     switch (e.target.dataset.name) {
       case 'snake':
-      Actions.Settings.changeMatrixManager(CONSTANTS.Settings.SNAKE);
+      AppActions.changeMatrixController(CONSTANTS.App.CONTROLLER_CLICK);
       break;
 
       case 'click':
-      Actions.Settings.changeMatrixManager(CONSTANTS.Settings.CLICK);
+      AppActions.changeMatrixController(CONSTANTS.App.CONTROLLER_SNAKE);
       break;
 
       case 'pre':
-      Actions.Settings.changeVisualization(CONSTANTS.Settings.TYPE_PRE_MATRIX);
+      AppActions.changeVisualization(CONSTANTS.App.VISUALIZATION_PRE_MATRIX);
       break;
 
       case 'matrix':
-      Actions.Settings.changeVisualization(CONSTANTS.Settings.TYPE_REACT_MATRIX);
+      AppActions.changeVisualization(CONSTANTS.App.VISUALIZATION_REACT_MATRIX);
       break;
     }
   },
 
-  componentDidMount () {
-    SettingsStore.addChangeListener(this.handleChange);
-  },
-
-  componentDidUnmount () {
-    SettingsStore.removeChangeListener(this.handleChange);
-  },
-
-  handleChange () {
-    this.setState(SettingsStore.getSettingsState());
-  },
-
   render () {
-    var vis = this.state.visualization !== CONSTANTS.Settings.TYPE_PRE_MATRIX ?
-      <li key={4} data-name="pre" onClick={this.handleClick}>Pre</li> :
-      <li key={4} data-name="matrix" onClick={this.handleClick}>Matrix</li>;
+    // var vis = this.state.visualization !== CONSTANTS.App.VISUALIZATION_PRE_MATRIX ?
+    //   <li key={4} data-name="pre" onClick={this.handleClick}>Pre</li> :
+    //   <li key={4} data-name="matrix" onClick={this.handleClick}>Matrix</li>;
 
-    var devices = !this.state.devices.length ?
-      <li>No devices</li> :
-      this.state.devices.map((device, i) => <li key={i*10}>Device {i}</li>);
+    // var devices = !this.state.devices.length ?
+    //   <li>No devices</li> :
+    //   this.state.devices.map((device, i) => <li key={i*10}>Device {i}</li>);
 
     return (
-      <ul className="Settings">
-        <li key={1}
-            data-name="devices">
-          Devices
-          <ul className="devices">
-            {devices}
+      <article className="Settings">
+        <h1>SETTINGS</h1>
+        <p>Device connected: <span>Device ID</span></p>
+
+        <section>
+          <h2>Visualization</h2>
+          <p>Change what is the current visualization</p>
+          <ul>
+            <li onClick={this.handleVisClick} data-name='react-matrix'
+                key={1}>React-Matrix</li>
+            <li onClick={this.handleVisClick} data-name='pre'
+                key={2}>Pre</li>
           </ul>
-        </li>
-        <li key={2}
-            data-name="snake"
-            onClick={this.handleClick}>
-          Snake Game</li>
-        <li key={3}
-            data-name="click"
-            onClick={this.handleClick}>
-          Click</li>
-        {vis}
-      </ul>
+        </section>
+
+        <section>
+          <h2>Control</h2>
+          <p>Define what is going to control the matrix</p>
+          <ul>
+            <li onClick={this.handleControlClick} data-name='click'
+                key={11}>Click</li>
+            <li onClick={this.handleControlClick} data-name='drag'
+                key={12}>Drag</li>
+            <li onClick={this.handleControlClick} data-name='snake'
+                key={13}>Snake Game</li>
+          </ul>
+        </section>
+      </article>
     );
   }
 });

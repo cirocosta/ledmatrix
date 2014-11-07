@@ -7,7 +7,7 @@
  * Eg: keyMirror({A:false}, 'HEY') --> {A: KEY_A}
  */
 
-module.exports = (obj, namespace) => {
+module.exports = (namespace, obj) => {
   var ret = {};
 
   for (var key in obj) {

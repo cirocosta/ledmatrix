@@ -2,7 +2,8 @@ module.exports = (...stores) => {
   return {
     getInitialState () {
       if (!this.getStateFromStores)
-        throw new Error('The component must have a `getStateFromStores` method.');
+        throw new Error('The component ' + this.constructor.displayName +
+                        ' must have a `getStateFromStores` method.');
 
       return this.getStateFromStores();
     },

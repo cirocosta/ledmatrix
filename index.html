@@ -5,6 +5,11 @@
   <title>teste</title>
 </head>
 <body>
+  <script>
+  try {
+    require('nw.gui').Window.get().showDevTools();
+  } catch (err) {}
+  </script>
   <script src="dist/main.js"></script>
 </body>
 </html>

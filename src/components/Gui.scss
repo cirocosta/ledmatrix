@@ -1,4 +1,7 @@
 .Gui {
+  position: fixed;
+  top: 0;
+  width: 100%;
   padding: 1.5rem 0;
   background-color: #F0F0F0;
   line-height: 0.6;
@@ -21,10 +24,11 @@
       border-radius: 1.6rem;
       padding: 0 1rem;
       margin: 0 .3rem;
-      background: rgb(224, 224, 224);
+      background: #E9E9E9;
 
       &:hover {
         box-shadow: .1rem .1rem .5rem white;
+        background: rgb(224, 224, 224);
       }
     }
   }

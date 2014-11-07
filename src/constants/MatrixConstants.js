@@ -1,7 +1,5 @@
-'use strict';
+var keyMirror = require('../utils/keyMirror');
 
-var keyMirror = require('react/lib/keyMirror');
-
-module.exports = keyMirror({
+module.exports = keyMirror('MATRIX', {
   UPDATE: null,
 });

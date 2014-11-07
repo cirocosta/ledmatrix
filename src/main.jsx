@@ -6,8 +6,6 @@
  * Entry point for the application
  */
 
-'use strict';
-
 var React = require('react');
 var Application = require('./components/Application.jsx');
 

@@ -17,7 +17,6 @@ var MATRIX_SIZE = 10;
 var _INITIAL_MATRIX = [];
 var _matrix;
 var _manager = CONSTANTS.Matrix.CLICK_MANAGER;
-var _devices = [];
 
 /**
  * Converts a number to a fixed length
@@ -89,16 +88,6 @@ var MatrixStore = assign({
             device.write(repr);
           });
 
-        MatrixStore.emitChange();
-        break;
-
-      case CONSTANTS.Settings.ADD_DEVICE:
-        _devices.push(action.device);
-        MatrixStore.emitChange();
-        break;
-
-      case CONSTANTS.Settings.REMOVE_DEVICE:
-        delete _devices[payload.id];
         MatrixStore.emitChange();
         break;
     }

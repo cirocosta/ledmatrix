@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * The dispatcher is the central hun that will
  * manage all of the data flow in an application

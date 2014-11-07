@@ -1,5 +1,3 @@
-'use strict';
-
 var yaspm = require('yaspm');
 var Machines = yaspm.Machines('grbl');
 var {DeviceActions} = require('../actions');

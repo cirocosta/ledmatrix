@@ -1,7 +1,5 @@
-'use strict';
-
+var GeneralConstants = require('../constants/GeneralConstants');
 var Dispatcher = require('./Dispatcher');
-var CONSTANTS = require('../constants');
 var merge = require('react/lib/merge');
 
 /**
@@ -15,14 +13,14 @@ var merge = require('react/lib/merge');
 var AppDispatcher = merge(Dispatcher.prototype, {
   handleViewAction (action) {
     this.dispatch({
-      source: CONSTANTS.VIEW_ACTION,
+      source: GeneralConstants.VIEW_ACTION,
       action: action
     });
   },
 
   handleDeviceAction (action) {
     this.dispatch({
-      source: CONSTANTS.DEVICE_ACTION,
+      source: GeneralConstants.DEVICE_ACTION,
       action: action
     });
   }

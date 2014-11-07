@@ -2,8 +2,6 @@
  * @jsx React.DOM
  */
 
-'use strict';
-
 require('./Application.scss');
 
 var React = require('react');
@@ -19,7 +17,7 @@ var Application = React.createClass({
       null;
 
     return (
-      <div>
+      <div className={"Application"}>
         {gui}
         <Main />
       </div>
