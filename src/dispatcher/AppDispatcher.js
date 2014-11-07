@@ -1,7 +1,7 @@
 'use strict';
 
 var Dispatcher = require('./Dispatcher');
-var CONSTANTS = require('../constants/Constants');
+var CONSTANTS = require('../constants');
 var merge = require('react/lib/merge');
 
 /**

@@ -1,6 +1,6 @@
 'use strict';
 
-var CONSTANTS = require('../constants/Constants');
+var CONSTANTS = require('../constants');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 
 var MatrixActions = {

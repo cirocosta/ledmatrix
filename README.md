@@ -1,6 +1,6 @@
 # ledmatrix
 
-> node-webkit and web Application for controlling a led matrix and also playing snake game.
+> node-webkit and (restricted) web Application for controlling a led matrix and also playing games.
 
 ## Building
 

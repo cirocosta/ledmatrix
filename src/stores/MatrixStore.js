@@ -1,9 +1,14 @@
-'use strict';
+/**
+ * Holds state of the main datastructure of the
+ * application: Matrices. This is exposed as an
+ * array of matrices sorted by the priority that
+ * they have in a given application.
+ */
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var CONSTANTS = require('../constants/Constants');
-var merge = require('react/lib/merge');
+var Store = require('./Store');
+var CONSTANTS = require('../constants');
+var assign = require('object-assign');
 
 var clone = (obj) => JSON.parse(JSON.stringify(obj));
 
@@ -64,22 +69,10 @@ _matrix = clone(_INITIAL_MATRIX);
  * `dispatch` method.
  */
 
-var MatrixStore = merge(EventEmitter.prototype, {
+var MatrixStore = assign({
   getMatrix: () => _matrix,
 
   getInitialMatrix: () => _INITIAL_MATRIX,
-
-  emitChange () {
-    this.emit(CHANGE_EVENT);
-  },
-
-  addChangeListener (cb) {
-    this.on(CHANGE_EVENT, cb);
-  },
-
-  removeChangeListener (cb) {
-    this.removeListener(CHANGE_EVENT, cb);
-  },
 
   dispatcherIndex: AppDispatcher.register((payload) => {
     var action = payload.action;
@@ -112,7 +105,7 @@ var MatrixStore = merge(EventEmitter.prototype, {
 
     return true;
   })
-});
+}, Store);
 
 
 

@@ -8,11 +8,11 @@ require('./Main.scss');
 require('react-matrix/dist/react-matrix.css');
 
 var React = require('react/addons');
-var CONSTANTS = require('../constants/Constants');
+var CONSTANTS = require('../constants');
 var PreMatrix = require('./PreMatrix.jsx');
 var Matrix = require('react-matrix/dist/react-matrix.js');
 var Settings = require('./Settings.jsx');
-var Actions = require('../actions/Actions');
+var Actions = require('../actions');
 var MatrixStore = require('../stores/MatrixStore');
 var SettingsStore = require('../stores/SettingsStore');
 var SnakeGame = require('matrix-snake');

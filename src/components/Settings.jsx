@@ -8,8 +8,8 @@ require('./Settings.scss');
 
 var React = require('react');
 var SettingsStore = require('../stores/SettingsStore');
-var CONSTANTS = require('../constants/Constants');
-var Actions = require('../actions/Actions');
+var CONSTANTS = require('../constants');
+var Actions = require('../actions');
 
 var Settings = React.createClass({
   getInitialState: () => SettingsStore.getSettingsState(),

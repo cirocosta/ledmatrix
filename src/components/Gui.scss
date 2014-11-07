@@ -1,20 +1,31 @@
 .Gui {
+  padding: 1.5rem 0;
+  background-color: #F0F0F0;
+  line-height: 0.6;
   text-align: right;
   -webkit-app-region: drag;
   cursor: move;
+  box-shadow: 0.3rem 0 1.7rem #acacac;
 
   ul {
-    padding: 1.5rem 0;
-    background-color: #F0F0F0;
-    font-size: 3rem;
-    line-height: 1.7;
+    margin-right: .8rem;
 
     li {
       cursor: pointer;
       -webkit-app-region: no-drag;
       display: inline;
       list-style-type: none;
-      padding-right: 2rem;
+      text-shadow: -.1rem -.1rem 0 white, .1rem .1rem 0 white;
+      color: rgb(129, 129, 129);
+      font-size: 1.7rem;
+      border-radius: 1.6rem;
+      padding: 0 1rem;
+      margin: 0 .3rem;
+      background: rgb(224, 224, 224);
+
+      &:hover {
+        box-shadow: .1rem .1rem .5rem white;
+      }
     }
   }
 }

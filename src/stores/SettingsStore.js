@@ -1,11 +1,18 @@
+////////////////
+// DEPRECATED //
+////////////////
+
 'use strict';
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var CONSTANTS = require('../constants/Constants');
+var CONSTANTS = require('../constants');
 var merge = require('react/lib/merge');
 
-process.env.NODE_ENV !== 'web' && require('../utils/DeviceManager').init();
+// If we are not in a web environment, initialize
+// the device manager.
+process.env.NODE_ENV !== 'web' &&
+  require('../utils/DeviceManager').init();
 
 var CHANGE_EVENT = 'change';
 var _settings = {
