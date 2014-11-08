@@ -6,12 +6,11 @@ require('./Settings.scss');
 
 var React = require('react');
 var CONSTANTS = require('../constants');
+var cx = require('../utils/cx');
 var {storesGlueMixin} = require('../mixins');
 var {AppStore, DeviceStore} = require('../stores');
 var {AppActions} = require('../actions');
 var assign = require('object-assign');
-
-console.log(require('../stores'));
 
 var Settings = React.createClass({
   mixins: [storesGlueMixin(AppStore, DeviceStore)],
@@ -23,20 +22,24 @@ var Settings = React.createClass({
 
   handleClick (e) {
     switch (e.target.dataset.name) {
-      case 'snake':
-      AppActions.changeMatrixController(CONSTANTS.App.CONTROLLER_CLICK);
+      case 'ctrl-snake':
+      AppActions.changeMatrixCtrl(CONSTANTS.App.CTRL_SNAKE);
       break;
 
-      case 'click':
-      AppActions.changeMatrixController(CONSTANTS.App.CONTROLLER_SNAKE);
+      case 'ctrl-click':
+      AppActions.changeMatrixCtrl(CONSTANTS.App.CTRL_CLICK);
       break;
 
-      case 'pre':
-      AppActions.changeVisualization(CONSTANTS.App.VISUALIZATION_PRE_MATRIX);
+      case 'ctrl-drag':
+      AppActions.changeMatrixCtrl(CONSTANTS.App.CTRL_DRAG);
       break;
 
-      case 'matrix':
-      AppActions.changeVisualization(CONSTANTS.App.VISUALIZATION_REACT_MATRIX);
+      case 'vis-pre':
+      AppActions.changeMatrixVis(CONSTANTS.App.VIS_PRE);
+      break;
+
+      case 'vis-react-matrix':
+      AppActions.changeMatrixVis(CONSTANTS.App.VIS_REACT_MATRIX);
       break;
     }
   },
@@ -51,27 +54,25 @@ var Settings = React.createClass({
   },
 
   render () {
-    // var vis = this.state.visualization !== CONSTANTS.App.VISUALIZATION_PRE_MATRIX ?
-    //   <li key={4} data-name="pre" onClick={this.handleClick}>Pre</li> :
-    //   <li key={4} data-name="matrix" onClick={this.handleClick}>Matrix</li>;
-
-    console.log(this.state);
+    var devices = this._getDevices();
 
     return (
       <article className="Settings">
         <h1>SETTINGS</h1>
         <p>Devices connected:</p>
         <ul>
-          {this._getDevices()}
+          {devices}
         </ul>
 
         <section>
           <h2>Visualization</h2>
           <p>Change what is the current visualization</p>
           <ul>
-            <li onClick={this.handleVisClick} data-name='react-matrix'
+            <li className={cx({active: this.state.vis === CONSTANTS.App.VIS_REACT_MATRIX})}
+                onClick={this.handleClick} data-name='vis-react-matrix'
                 key={1}>React-Matrix</li>
-            <li onClick={this.handleVisClick} data-name='pre'
+            <li className={cx({active: this.state.vis === CONSTANTS.App.VIS_PRE})}
+                onClick={this.handleClick} data-name='vis-pre'
                 key={2}>Pre</li>
           </ul>
         </section>
@@ -80,11 +81,14 @@ var Settings = React.createClass({
           <h2>Control</h2>
           <p>Define what is going to control the matrix</p>
           <ul>
-            <li onClick={this.handleControlClick} data-name='click'
+            <li className={cx({active: this.state.ctrl === CONSTANTS.App.CTRL_CLICK})}
+                onClick={this.handleClick} data-name='ctrl-click'
                 key={11}>Click</li>
-            <li onClick={this.handleControlClick} data-name='drag'
+            <li className={cx({active: this.state.ctrl === CONSTANTS.App.CTRL_DRAG})}
+                onClick={this.handleClick} data-name='ctrl-drag'
                 key={12}>Drag</li>
-            <li onClick={this.handleControlClick} data-name='snake'
+            <li className={cx({active: this.state.ctrl === CONSTANTS.App.CTRL_SNAKE})}
+                onClick={this.handleClick} data-name='ctrl-snake'
                 key={13}>Snake Game</li>
           </ul>
         </section>

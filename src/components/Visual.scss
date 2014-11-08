@@ -1,0 +1,12 @@
+.Visual {
+  .Grid {
+    stroke: rgb(201, 201, 201);
+    fill: antiquewhite;
+  }
+
+  .Cell {
+    &.active {
+      fill: rgb(255, 81, 81);
+    }
+  }
+}

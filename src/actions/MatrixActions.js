@@ -7,7 +7,15 @@ var MatrixActions = {
       actionType: CONSTANTS.Matrix.UPDATE,
       matrix: matrix
     });
-  }
+  },
+
+  activateCell (coordinates, onlyOne) {
+    AppDispatcher.handleViewAction({
+      actionType: CONSTANTS.Matrix.ACTIVATE_CELL,
+      coordinates: coordinates,
+      onlyOne: onlyOne
+    });
+  },
 };
 
 module.exports = MatrixActions;

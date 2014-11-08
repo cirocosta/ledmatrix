@@ -14,6 +14,8 @@ var gui = process.env.NODE_ENV !== 'web' ?
 
 var _appState = {
   maximized: false,
+  vis: null,
+  ctrl: null
 };
 
 
@@ -38,6 +40,18 @@ var AppStore = assign({
           gui.Window.get().maximize();
 
         _appState.maximized = !_appState.maximized;
+        AppStore.emitChange();
+        break;
+
+      case CONSTANTS.App.CHANGE_VIS:
+        _appState.vis = action.type;
+
+        AppStore.emitChange();
+        break;
+
+      case CONSTANTS.App.CHANGE_CTRL:
+        _appState.ctrl = action.type;
+
         AppStore.emitChange();
         break;
     }

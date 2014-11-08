@@ -7,12 +7,9 @@
  */
 
 require('./Main.scss');
-require('react-matrix/dist/react-matrix.css');
 
 var React = require('react/addons');
 var CONSTANTS = require('../constants');
-var PreMatrix = require('./PreMatrix.jsx');
-var Matrix = require('react-matrix/dist/react-matrix.js');
 var Visual = require('./Visual.jsx');
 var Settings = require('./Settings.jsx');
 var Actions = require('../actions');

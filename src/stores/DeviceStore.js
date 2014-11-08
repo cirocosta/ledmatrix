@@ -36,9 +36,6 @@ var DeviceStore = assign({
         delete _devices[action.id];
         DeviceStore.emitChange();
         break;
-
-      default:
-        console.warn('DeviceStore: %s received but not handled', action.actionType);
     }
 
     return true;

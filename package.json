@@ -5,9 +5,7 @@
   "main": "index.html",
   "scripts": {
     "postinstall": "./postinstall.sh",
-
     "start": "nodewebkit",
-
     "build-nodewebkit": "NODE_ENV=nodewebkit webpack -d --progress --watch --colors",
     "build-web": "NODE_ENV=web webpack -p --progress"
   },
@@ -29,7 +27,7 @@
     "nw-gyp": "^0.12.2",
     "object-assign": "^1.0.0",
     "react": "^0.11.2",
-    "react-matrix": "0.0.2",
+    "react-matrix": "^0.0.5",
     "sass-loader": "^0.2.0",
     "style-loader": "^0.8.0",
     "webpack": "^1.4.3",

@@ -8,17 +8,17 @@ var AppActions = {
     });
   },
 
-  changeVisualization (type) {
+  changeMatrixVis (type) {
     AppDispatcher.handleViewAction({
-      actionType: CONSTANTS.App.CHANGE_VISUALIZATION,
+      actionType: CONSTANTS.App.CHANGE_VIS,
       type: type
     });
   },
 
-  changeMatrixManager (who) {
+  changeMatrixCtrl (type) {
     AppDispatcher.handleViewAction({
-      actionType: CONSTANTS.App.CHANGE_MATRIX_MANAGER,
-      who: who
+      actionType: CONSTANTS.App.CHANGE_CTRL,
+      type: type
     });
   },
 };
