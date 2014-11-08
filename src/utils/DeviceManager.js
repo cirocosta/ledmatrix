@@ -19,7 +19,7 @@ var _intToFixedHex = function (num, size) {
  * Converts a matrix to a fixed length string of
  * hex decimal values.
  */
-var matrixToHex = (matrix) => {
+var _matrixToHex = (matrix) => {
   var N = matrix.length;
   var repr = [];
 
@@ -29,11 +29,17 @@ var matrixToHex = (matrix) => {
   return repr.join('');
 };
 
+var writeMatrix = (device, matrix) => {
+  device.write(_matrixToHex(matrix));
+};
+
 /**
  * Connect and Disconnect handlers
  */
-var handleConnect = (device) => DeviceActions.addDevice({device: device});
-var handleDisconnect = (id) => DeviceActions.removeDevice(id);
+var handleConnect = (device) =>
+  DeviceActions.addDevice({device: device});
+var handleDisconnect = (id) =>
+  DeviceActions.removeDevice(id);
 
 /**
  * Initializes the device manager.
@@ -52,5 +58,5 @@ var init = () => {
 
 module.exports = {
   init: init,
-  matrixToHex: matrixToHex
+  writeMatrix: writeMatrix
 };

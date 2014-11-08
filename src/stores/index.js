@@ -3,6 +3,4 @@ module.exports = {
   DeviceStore: require('./DeviceStore'),
   GameStore: require('./GameStore'),
   MatrixStore: require('./MatrixStore'),
-
-  // SettingsStore: require('./SettingsStore')
 };

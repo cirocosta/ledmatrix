@@ -4,14 +4,25 @@
  * application.
  */
 
- var AppDispatcher = require('../dispatcher/AppDispatcher');
- var CONSTANTS = require('../constants');
- var Store = require('./Store');
- var assign = require('object-assign');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var CONSTANTS = require('../constants');
+var Store = require('./Store');
+var MatrixStore = require('./MatrixStore');
+var assign = require('object-assign');
+var isEmpty = (obj) => obj ? !Object.keys(obj).length : true;
+var DeviceManager = require('../utils/DeviceManager');
 
-__NODEWEBKIT__ && require('../utils/DeviceManager').init();
+DeviceManager.init();
 
 var _devices = {};
+
+MatrixStore.addChangeListener(() => {
+  if (isEmpty(_devices))
+   return;
+
+  for (var id in _devices)
+    DeviceManager.writeMatrix(_devices[id], MatrixStore.getMatrixState().matrix);
+});
 
 var DeviceStore = assign({
   getDevicesState () {

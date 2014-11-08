@@ -47,7 +47,7 @@ var Settings = React.createClass({
   _getDevices () {
     var ids = Object.keys(this.state.devices);
     var devicesElem = ids.length ?
-      ids.map((id, i) => <li key={i}>{id}</li>) :
+      ids.map((id, i) => <li className='device' key={i}>{id}</li>) :
       <li>No Devices :(</li>;
 
     return devicesElem;

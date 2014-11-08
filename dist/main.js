@@ -564,7 +564,7 @@
 	  _getDevices:function () {
 	    var ids = Object.keys(this.state.devices);
 	    var devicesElem = ids.length ?
-	      ids.map(function(id, i)  {return React.DOM.li({key: i}, id);}) :
+	      ids.map(function(id, i)  {return React.DOM.li({className: "device", key: i}, id);}) :
 	      React.DOM.li(null, "No Devices :(");
 	
 	    return devicesElem;
@@ -930,8 +930,6 @@
 	  DeviceStore: __webpack_require__(/*! ./DeviceStore */ 59),
 	  GameStore: __webpack_require__(/*! ./GameStore */ 60),
 	  MatrixStore: __webpack_require__(/*! ./MatrixStore */ 61),
-	
-	  // SettingsStore: require('./SettingsStore')
 	};
 
 
@@ -1133,7 +1131,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(/*! ./~/css-loader/cssToString.js */ 30)();
-	exports.push([module.id, ".Settings .active{color:gray;}.Settings li{cursor:pointer;}", ""]);
+	exports.push([module.id, ".Settings .active{color:gray;}.Settings li{cursor:pointer;}.Settings li.device{overflow-wrap:break-word;}", ""]);
 
 /***/ },
 /* 29 */
@@ -7716,14 +7714,25 @@
 	 * application.
 	 */
 	
-	 var AppDispatcher = __webpack_require__(/*! ../dispatcher/AppDispatcher */ 144);
-	 var CONSTANTS = __webpack_require__(/*! ../constants */ 18);
-	 var Store = __webpack_require__(/*! ./Store */ 140);
-	 var assign = __webpack_require__(/*! object-assign */ 67);
+	var AppDispatcher = __webpack_require__(/*! ../dispatcher/AppDispatcher */ 144);
+	var CONSTANTS = __webpack_require__(/*! ../constants */ 18);
+	var Store = __webpack_require__(/*! ./Store */ 140);
+	var MatrixStore = __webpack_require__(/*! ./MatrixStore */ 61);
+	var assign = __webpack_require__(/*! object-assign */ 67);
+	var isEmpty = function(obj)  {return obj ? !Object.keys(obj).length : true;};
+	var DeviceManager = __webpack_require__(/*! ../utils/DeviceManager */ 141);
 	
-	(true) && __webpack_require__(/*! ../utils/DeviceManager */ 141).init();
+	DeviceManager.init();
 	
 	var _devices = {};
+	
+	MatrixStore.addChangeListener(function()  {
+	  if (isEmpty(_devices))
+	   return;
+	
+	  for (var id in _devices)
+	    DeviceManager.writeMatrix(_devices[id], MatrixStore.getMatrixState().matrix);
+	});
 	
 	var DeviceStore = assign({
 	  getDevicesState:function () {
@@ -16803,7 +16812,7 @@
 	 * Converts a matrix to a fixed length string of
 	 * hex decimal values.
 	 */
-	var matrixToHex = function(matrix)  {
+	var _matrixToHex = function(matrix)  {
 	  var N = matrix.length;
 	  var repr = [];
 	
@@ -16813,11 +16822,17 @@
 	  return repr.join('');
 	};
 	
+	var writeMatrix = function(device, matrix)  {
+	  device.write(_matrixToHex(matrix));
+	};
+	
 	/**
 	 * Connect and Disconnect handlers
 	 */
-	var handleConnect = function(device)  {return DeviceActions.addDevice({device: device});};
-	var handleDisconnect = function(id)  {return DeviceActions.removeDevice(id);};
+	var handleConnect = function(device) 
+	  {return DeviceActions.addDevice({device: device});};
+	var handleDisconnect = function(id) 
+	  {return DeviceActions.removeDevice(id);};
 	
 	/**
 	 * Initializes the device manager.
@@ -16836,7 +16851,7 @@
 	
 	module.exports = {
 	  init: init,
-	  matrixToHex: matrixToHex
+	  writeMatrix: writeMatrix
 	};
 
 
