@@ -52,20 +52,19 @@ var MatrixStore = assign({
     var action = payload.action;
 
     switch (action.actionType) {
-      case CONSTANTS.Matrix.UPDATE:
-        _matrix = action.matrix.matrix;
-        // var repr = matrixToHex(_matrix);
+      case CONSTANTS.Matrix.RESET:
+        _matrix = clone(_INITIAL_MATRIX);
 
-        // if (_devices.length)
-        //   _devices.forEach((device) => {
-        //     device.write(repr);
-        //   });
+        MatrixStore.emitChange();
+        break;
+
+      case CONSTANTS.Matrix.UPDATE:
+        _matrix = action.matrix;
 
         MatrixStore.emitChange();
         break;
 
       case CONSTANTS.Matrix.ACTIVATE_CELL:
-        console.log(action);
         var x = action.coordinates[1];
         var y = action.coordinates[0];
 

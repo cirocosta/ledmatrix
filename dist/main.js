@@ -137,187 +137,11 @@
 	__webpack_require__(/*! ./Main.scss */ 10);
 	
 	var React = __webpack_require__(/*! react/addons */ 12);
-	var CONSTANTS = __webpack_require__(/*! ../constants */ 18);
 	var Visual = __webpack_require__(/*! ./Visual.jsx */ 14);
 	var Settings = __webpack_require__(/*! ./Settings.jsx */ 15);
-	var Actions = __webpack_require__(/*! ../actions */ 20);
-	// var MatrixStore = require('../stores/MatrixStore');
-	// var SettingsStore = require('../stores/SettingsStore');
-	var SnakeGame = __webpack_require__(/*! matrix-snake */ 32);
-	var keymaster = __webpack_require__(/*! keymaster */ 29);
-	
-	// var update = React.addons.update;
-	
-	// var _rAFid;
-	// var _cbObj = new SnakeGame.CbObj();
-	// var _game;
-	
-	// var attachKeyHandlers = () => {
-	//   keymaster('w,a,s,d', function (e, obj) {
-	//     switch (obj.shortcut) {
-	//       case 'w':
-	//       _cbObj.emitDir('up');
-	//       break;
-	//       case 's':
-	//       _cbObj.emitDir('down');
-	//       break;
-	//       case 'a':
-	//       _cbObj.emitDir('left');
-	//       break;
-	//       case 'd':
-	//       _cbObj.emitDir('right');
-	//       break;
-	//     }
-	//   });
-	// };
-	
-	// var detachKeyHandlers = () => {
-	//   ['w','a','s','d'].forEach(function (key) {
-	//     keymaster.unbind(key);
-	//   });
-	// };
 	
 	var Main = React.createClass({displayName: 'Main',
-	//   /**
-	//    * Lifecycle and store changes
-	//    */
-	
-	//   getInitialState () {
-	//     return {
-	//       matrix: MatrixStore.getMatrix(),
-	//       // settings: SettingsStore.getSettingsState(),
-	//       fruits: 0,
-	//       crashes: 0,
-	//       snake: false
-	//     }
-	//   },
-	
-	//   componentDidMount () {
-	//     MatrixStore.addChangeListener(this.handleChange);
-	//     // SettingsStore.addChangeListener(this.handleChange);
-	//   },
-	
-	//   componentDidUnmount () {
-	//     MatrixStore.removeChangeListener(this.handleChange);
-	//     // SettingsStore.removeChangeListener(this.handleChange);
-	//   },
-	
-	//   handleChange () {
-	//     var matrix = MatrixStore.getMatrix();
-	//     // var settings = SettingsStore.getSettingsState();
-	//     var snake = this.state.snake;
-	
-	//     if (settings.matrixManager === CONSTANTS.Settings.SNAKE) {
-	//       attachKeyHandlers();
-	
-	//       if (!this.state.snake) {
-	//         _game = SnakeGame.prepare(10, 10, _cbObj, this.handleFruitEat, this.handleCrash);
-	//         _rAFid = requestAnimationFrame(this.gameTick);
-	//         snake = true;
-	//       }
-	//     } else {
-	//       detachKeyHandlers();
-	//       cancelAnimationFrame(_rAFid);
-	
-	//       _rAFid = null;
-	//       snake = false;
-	//     }
-	
-	//     this.setState(update(this.state, {
-	//       matrix: {$set: matrix},
-	//       settings: {$set: settings},
-	//       snake: {$set: snake},
-	//     }));
-	//   },
-	
-	//   /**
-	//    * Click
-	//    */
-	
-	//   handleCellClick (cellState) {
-	//     var x = (cellState.y);
-	//     var y = (cellState.x);
-	//     var updateRow = {matrix: {}};
-	
-	//     updateRow.matrix[x] = {$apply: function (x) {
-	//       return (x[y] = 1, x);
-	//     }};
-	
-	//     Actions.Matrix.updateMatrix(update(
-	//       {matrix: MatrixStore.getInitialMatrix()},
-	//       updateRow));
-	//   },
-	
-	//   /**
-	//    * Snake related
-	//    */
-	
-	//   gameTime: {
-	//     _now: null,
-	//     _then: Date.now(),
-	//     _interval: 1000/6,
-	//     _delta: null
-	//   },
-	
-	//   gameTick () {
-	//     requestAnimationFrame(this.gameTick);
-	
-	//     this.gameTime._now = Date.now();
-	//     this.gameTime._delta = this.gameTime._now - this.gameTime._then;
-	
-	//     if (this.gameTime._delta <= this.gameTime._interval)
-	//       return;
-	
-	//     this.gameTime._then = this.gameTime._now - (this.gameTime._delta % this.gameTime._interval);
-	
-	//     Actions.Matrix.updateMatrix(update(this.state, {matrix: {$set: _game.next()}}));
-	//   },
-	
-	//   handleCrash () {
-	//     this.setState(update(this.state, {crashes: {$set: ++this.state.crashes}}));
-	//   },
-	
-	//   handleFruitEat () {
-	//     this.setState(update(this.state, {fruits: {$set: ++this.state.fruits}}));
-	//   },
-	
-	//   handleResetSnake () {
-	//     _game = SnakeGame.prepare(10, 10, _cbObj, this.handleFruitEat, this.handleCrash);
-	//     this.setState(update(this.state, {
-	//       fruits: {$set: 0},
-	//       crashes: {$set: 0},
-	//       matrix: {$set: _game.next()}
-	//     }));
-	//   },
-	
-	  /**
-	   * Render
-	   */
-	
 	  render:function () {
-	    // var mtx;
-	
-	    // if (this.state.settings.visualization ===
-	    //     CONSTANTS.Settings.TYPE_REACT_MATRIX) {
-	    //   var clickHandler = this.state.settings.matrixManager === CONSTANTS.Settings.CLICK ?
-	    //     this.handleCellClick :
-	    //     null;
-	
-	    //   mtx = <Matrix squareSize={23}
-	    //                 onCellClick={clickHandler}
-	    //                 matrix={this.state.matrix} />;
-	    // } else {
-	    //   mtx = <PreMatrix matrix={this.state.matrix} />;
-	    // }
-	
-	    // var gameBtn = this.state.settings.matrixManager === CONSTANTS.Settings.SNAKE ?
-	    //    <div>
-	    //      <button className="reset" onClick={this.handleResetSnake}>RESET GAME</button>
-	    //      <p><strong>Fruits:</strong> {this.state.fruits}</p>
-	    //      <p><strong>Crashes:</strong> {this.state.crashes}</p>
-	    //    </div> :
-	    //    null;
-	
 	    return (
 	      React.DOM.main({className: "Main grid"}, 
 	        React.DOM.div({className: "grid__row"}, 
@@ -603,7 +427,7 @@
 	
 	var CONSTANTS = __webpack_require__(/*! ../constants */ 18);
 	var $__0=  __webpack_require__(/*! ../mixins */ 21),storesGlueMixin=$__0.storesGlueMixin;
-	var $__1=  __webpack_require__(/*! ../actions */ 20),MatrixActions=$__1.MatrixActions;
+	var $__1=   __webpack_require__(/*! ../actions */ 20),MatrixActions=$__1.MatrixActions,GameActions=$__1.GameActions;
 	var $__2=   __webpack_require__(/*! ../stores */ 19),MatrixStore=$__2.MatrixStore,AppStore=$__2.AppStore;
 	
 	var ReactMatrix = __webpack_require__(/*! react-matrix/dist/react-matrix.js */ 79);
@@ -626,8 +450,25 @@
 	    }
 	  },
 	
+	  handleCtrlClick:function (type, e) {
+	    switch (this.state.ctrl) {
+	      case CONSTANTS.App.CTRL_CLICK:
+	        MatrixActions.resetMatrix();
+	        break;
+	
+	      case CONSTANTS.App.CTRL_SNAKE:
+	        if (type === CONSTANTS.Game.RESET)
+	          GameActions.resetGame();
+	        else if (type === CONSTANTS.Game.START)
+	          GameActions.startGame();
+	
+	        break;
+	    }
+	  },
+	
 	  render:function () {
 	    var matrixVis = React.DOM.p(null, "A visualization must be selected");
+	    var controls = null;
 	
 	    switch (this.state.vis) {
 	      case CONSTANTS.App.VIS_PRE:
@@ -642,10 +483,23 @@
 	        break;
 	    }
 	
+	    switch (this.state.ctrl) {
+	      case CONSTANTS.App.CTRL_CLICK:
+	        controls = React.DOM.button({onClick: this.handleCtrlClick.bind(null, null)}, "Reset");
+	        break;
+	
+	      case CONSTANTS.App.CTRL_SNAKE:
+	        controls =
+	          [React.DOM.button({key: 1, onClick: this.handleCtrlClick.bind(null, CONSTANTS.Game.START)}, "Start"),
+	           React.DOM.button({key: 2, onClick: this.handleCtrlClick.bind(null, CONSTANTS.Game.RESET)}, "Reset")];
+	        break;
+	    }
+	
 	    return (
 	      React.DOM.article({className: "Visual"}, 
 	        React.DOM.h1(null, "VISUAL"), 
-	        matrixVis
+	        matrixVis, 
+	        controls
 	      )
 	    );
 	  }
@@ -1057,7 +911,7 @@
 
 	module.exports = {
 	  Matrix: __webpack_require__(/*! ./MatrixConstants */ 54),
-	  Game: __webpack_require__(/*! ./MatrixConstants */ 54),
+	  Game: __webpack_require__(/*! ./GameConstants */ 215),
 	  App: __webpack_require__(/*! ./AppConstants */ 55),
 	  Device: __webpack_require__(/*! ./DeviceConstants */ 56),
 	  General: __webpack_require__(/*! ./GeneralConstants */ 57)
@@ -7715,6 +7569,7 @@
 	
 	module.exports = keyMirror('MATRIX', {
 	  UPDATE: null,
+	  RESET: null,
 	  ACTIVATE_CELL: null
 	});
 
@@ -7915,6 +7770,122 @@
 	 * Supposed to not hold well defined data, but
 	 * some more 'general purpose'.
 	 */
+	
+	var AppDispatcher = __webpack_require__(/*! ../dispatcher/AppDispatcher */ 144);
+	var SnakeGame = __webpack_require__(/*! matrix-snake */ 32);
+	var $__0=   __webpack_require__(/*! ../actions */ 20),MatrixActions=$__0.MatrixActions,GameActions=$__0.GameActions;
+	var AppStore = __webpack_require__(/*! ./AppStore */ 58);
+	var Store = __webpack_require__(/*! ./Store */ 140);
+	var CONSTANTS = __webpack_require__(/*! ../constants */ 18);
+	var assign = __webpack_require__(/*! object-assign */ 67);
+	var rafLoop = __webpack_require__(/*! ../utils/rafLoop */ 214)(5);
+	var keymaster = __webpack_require__(/*! keymaster */ 29);
+	
+	var _gameState = {
+	  running: false,
+	  fruits: 0
+	};
+	
+	var _cbObj = new SnakeGame.CbObj();
+	var _game;
+	
+	var _attachKeyHandlers = function()  {
+	  keymaster('w,a,s,d', function (e, obj) {
+	    switch (obj.shortcut) {
+	      case 'w':
+	      _cbObj.emitDir('up');
+	      break;
+	      case 's':
+	      _cbObj.emitDir('down');
+	      break;
+	      case 'a':
+	      _cbObj.emitDir('left');
+	      break;
+	      case 'd':
+	      _cbObj.emitDir('right');
+	      break;
+	    }
+	  });
+	};
+	
+	var _detachKeyHandlers = function()  {
+	  ['w','a','s','d'].forEach(function (key) {
+	    keymaster.unbind(key);
+	  });
+	};
+	
+	AppStore.addChangeListener(function()  {
+	  if (_gameState.running &&
+	      AppStore.getAppState().ctrl !== CONSTANTS.App.CTRL_SNAKE) {
+	    GameActions.stopGame();
+	  }
+	});
+	
+	/**
+	 * Registers itself with AppDispatcher so that
+	 * we are going to receive action's painted
+	 * payload from the call of appdispatcher's
+	 * `dispatch` method.
+	 */
+	
+	var GameStore = assign({
+	  getGameState: function()  {return _gameState;},
+	
+	  dispatcherIndex: AppDispatcher.register(function(payload)  {
+	    var action = payload.action;
+	
+	    switch (action.actionType) {
+	      case CONSTANTS.Game.START:
+	        if (_gameState.running)
+	          return;
+	
+	        _attachKeyHandlers();
+	        _game = SnakeGame.prepare(10, 10, _cbObj, GameActions.fruitEaten, GameActions.crash);
+	        _gameState.running = true;
+	
+	        requestAnimationFrame(rafLoop.tick.bind(this, function(milli)  {
+	          MatrixActions.updateMatrix(_game.next());
+	        }));
+	
+	        GameStore.emitChange();
+	        break;
+	
+	      case CONSTANTS.Game.RESET:
+	        _game = SnakeGame.prepare(10, 10, _cbObj, GameActions.fruitEaten, GameActions.crash);
+	
+	        if (!_gameState.running)
+	          GameActions.startGame();
+	        break;
+	
+	      case CONSTANTS.Game.STOP:
+	        _detachKeyHandlers();
+	        _gameState.running = false;
+	        cancelAnimationFrame(rafLoop.rAFid);
+	
+	        GameStore.emitChange();
+	        break;
+	
+	      case CONSTANTS.Game.CRASH:
+	        cancelAnimationFrame(rafLoop.rAFid);
+	        _gameState.running = false;
+	
+	        GameStore.emitChange();
+	        break;
+	
+	      case CONSTANTS.Game.FRUIT_EATEN:
+	        _gameState.fruits = action.fruits;
+	
+	        GameStore.emitChange();
+	        break;
+	    }
+	
+	    return true;
+	  }.bind(this))
+	}, Store);
+	
+	
+	module.exports = GameStore;
+	
 
 
 /***/ },
@@ -7978,20 +7949,19 @@
 	    var action = payload.action;
 	
 	    switch (action.actionType) {
-	      case CONSTANTS.Matrix.UPDATE:
-	        _matrix = action.matrix.matrix;
-	        // var repr = matrixToHex(_matrix);
+	      case CONSTANTS.Matrix.RESET:
+	        _matrix = clone(_INITIAL_MATRIX);
 	
-	        // if (_devices.length)
-	        //   _devices.forEach((device) => {
-	        //     device.write(repr);
-	        //   });
+	        MatrixStore.emitChange();
+	        break;
+	
+	      case CONSTANTS.Matrix.UPDATE:
+	        _matrix = action.matrix;
 	
 	        MatrixStore.emitChange();
 	        break;
 	
 	      case CONSTANTS.Matrix.ACTIVATE_CELL:
-	        console.log(action);
 	        var x = action.coordinates[1];
 	        var y = action.coordinates[0];
 	
@@ -8066,6 +8036,12 @@
 	    });
 	  },
 	
+	  resetMatrix:function () {
+	    AppDispatcher.handleViewAction({
+	      actionType: CONSTANTS.Matrix.RESET,
+	    });
+	  },
+	
 	  activateCell:function (coordinates, onlyOne) {
 	    AppDispatcher.handleViewAction({
 	      actionType: CONSTANTS.Matrix.ACTIVATE_CELL,
@@ -8089,12 +8065,36 @@
 	var AppDispatcher = __webpack_require__(/*! ../dispatcher/AppDispatcher */ 144);
 	
 	var GameActions = {
-	  // updateMatrix (matrix) {
-	  //   AppDispatcher.handleViewAction({
-	  //     actionType: CONSTANTS.Matrix.UPDATE,
-	  //     matrix: matrix
-	  //   });
-	  // }
+	  resetGame:function () {
+	    AppDispatcher.handleViewAction({
+	      actionType: CONSTANTS.Game.RESET
+	    });
+	  },
+	
+	  startGame:function () {
+	    AppDispatcher.handleViewAction({
+	      actionType: CONSTANTS.Game.START
+	    });
+	  },
+	
+	  stopGame:function () {
+	    AppDispatcher.handleViewAction({
+	      actionType: CONSTANTS.Game.STOP
+	    });
+	  },
+	
+	  crash:function () {
+	    AppDispatcher.handleViewAction({
+	      actionType: CONSTANTS.Game.CRASH
+	    });
+	  },
+	
+	  fruitEaten:function (fruits) {
+	    AppDispatcher.handleViewAction({
+	      actionType: CONSTANTS.Game.FRUIT_EATEN,
+	      fruits: fruits
+	    });
+	  },
 	};
 	
 	module.exports = GameActions;
@@ -23934,6 +23934,77 @@
 	}
 	
 	module.exports = toArray;
+
+
+/***/ },
+/* 214 */
+/*!******************************!*\
+  !*** ./src/utils/rafLoop.js ***!
+  \******************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Exposes some simple control over the game
+	 * loop w/ req animation frame.
+	 *
+	 * Call it like:
+	 * requestAnimationFrame(rafLoop.tick(callback));
+	 * By doing that, when needing to stop the loop:
+	 * cancelAnimationFrame(rafLoop.rAFid).
+	 */
+	
+	module.exports = function(fps)  {
+	  if (!fps)
+	    throw new Error('rafLoop: A FPS must be passed as an Argument.');
+	
+	  var rafLoop = {
+	    _timeStatus: {
+	      now: null,
+	      then: Date.now(),
+	      interval: 1000/fps,
+	      delta: null
+	    },
+	
+	    tick:function (obs, milli) {
+	      rafLoop.rAFid = requestAnimationFrame(rafLoop.tick.bind(null, obs));
+	
+	      rafLoop._timeStatus.now = Date.now();
+	      rafLoop._timeStatus.delta = rafLoop._timeStatus.now -
+	                                  rafLoop._timeStatus.then;
+	
+	      if (rafLoop._timeStatus.delta <= rafLoop._timeStatus.interval)
+	        return;
+	
+	      rafLoop._timeStatus.then = rafLoop._timeStatus.now -
+	                                 (rafLoop._timeStatus.delta %
+	                                  rafLoop._timeStatus.interval);
+	
+	      obs && obs(milli);
+	    }
+	  };
+	
+	  return rafLoop;
+	};
+	
+
+
+/***/ },
+/* 215 */
+/*!****************************************!*\
+  !*** ./src/constants/GameConstants.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var keyMirror = __webpack_require__(/*! ../utils/keyMirror */ 139);
+	
+	module.exports = keyMirror('GAME', {
+	  START: false,
+	  RESET: false,
+	  STOP: false,
+	
+	  FRUIT_EATEN: false,
+	  CRASH: false,
+	});
 
 
 /***/ }

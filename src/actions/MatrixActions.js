@@ -9,6 +9,12 @@ var MatrixActions = {
     });
   },
 
+  resetMatrix () {
+    AppDispatcher.handleViewAction({
+      actionType: CONSTANTS.Matrix.RESET,
+    });
+  },
+
   activateCell (coordinates, onlyOne) {
     AppDispatcher.handleViewAction({
       actionType: CONSTANTS.Matrix.ACTIVATE_CELL,

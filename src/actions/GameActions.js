@@ -2,12 +2,36 @@ var CONSTANTS = require('../constants');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 
 var GameActions = {
-  // updateMatrix (matrix) {
-  //   AppDispatcher.handleViewAction({
-  //     actionType: CONSTANTS.Matrix.UPDATE,
-  //     matrix: matrix
-  //   });
-  // }
+  resetGame () {
+    AppDispatcher.handleViewAction({
+      actionType: CONSTANTS.Game.RESET
+    });
+  },
+
+  startGame () {
+    AppDispatcher.handleViewAction({
+      actionType: CONSTANTS.Game.START
+    });
+  },
+
+  stopGame () {
+    AppDispatcher.handleViewAction({
+      actionType: CONSTANTS.Game.STOP
+    });
+  },
+
+  crash () {
+    AppDispatcher.handleViewAction({
+      actionType: CONSTANTS.Game.CRASH
+    });
+  },
+
+  fruitEaten (fruits) {
+    AppDispatcher.handleViewAction({
+      actionType: CONSTANTS.Game.FRUIT_EATEN,
+      fruits: fruits
+    });
+  },
 };
 
 module.exports = GameActions;
