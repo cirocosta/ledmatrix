@@ -1,24 +1,16 @@
 .Settings {
-  font-height: 1.7;
-  font-size: 3rem;
+  p.details {
+    color: black;
+    font-style: italic;
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .active {
+    color: gray;
+  }
 
   li {
     cursor: pointer;
-
-    &:hover {
-      color: #A0A0A0;
-    }
-  }
-
-  .devices {
-    li {
-      line-style-type: circle;
-      margin-left: 4rem;
-      color: #A0A0A0;
-
-      &:hover {
-        color: black;
-      }
-    }
   }
 }

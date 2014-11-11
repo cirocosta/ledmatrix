@@ -1,49 +1,63 @@
-'use strict';
-
 var yaspm = require('yaspm');
 var Machines = yaspm.Machines('');
-var Actions = require('../actions/Actions');
+var {DeviceActions} = require('../actions');
 
-var _devices = [];
+/**
+ * Converts a number to a fixed length
+ * hexadecimal string.
+ */
+var _intToFixedHex = function (num, size) {
+  var res = Number(num).toString(16);
 
-function handleConnect (device) {
-  Actions.Settings.addDevice({device: device});
-}
+  while (res.length < size)
+    res = '0' + res;
 
-function handleDisconnect (device) {
-  Actions.Settings.removeDevice({id: device.getInfo().pnpId});
-}
+  return res;
+};
 
-function init () {
+/**
+ * Converts a matrix to a fixed length string of
+ * hex decimal values.
+ */
+var _matrixToHex = (matrix) => {
+  var N = matrix.length;
+  var repr = [];
+
+  for (var i = 0; i < N; i++)
+    repr.push(_intToFixedHex(parseInt(matrix[i].join(''), 2), 3));
+
+  return repr.join('');
+};
+
+var writeMatrix = (device, matrix) => {
+  console.log('DEVICE:', matrix);
+  device.write(_matrixToHex(matrix));
+};
+
+/**
+ * Connect and Disconnect handlers
+ */
+var handleConnect = (device) =>
+  DeviceActions.addDevice({device: device});
+var handleDisconnect = (id) =>
+  DeviceActions.removeDevice(id);
+
+/**
+ * Initializes the device manager.
+ */
+var init = () => {
   Machines
     .search()
     .on('device', function (device) {
       device
         .connect()
         .on('connect', handleConnect.bind(null, device))
-        .on('disconnect', handleDisconnect.bind(null, device));
+        .on('disconnect', handleDisconnect.bind(null, device.getInfo()));
     })
     .on('removeddevice', handleDisconnect);
-}
-
-/**
- * Fake init implementation -- testing only.
- */
-function fakeInit () {
-  var device = new yaspm.FakeDevice();
-  device.getInfo = () => {
-    return {
-      pnpId: 'arduino-fake-pnpId'
-    };
-  };
-
-  setTimeout(() => {
-    Actions.Settings.addDevice({device: device});
-  }, 1000);
-}
+};
 
 module.exports = {
   init: init,
-  // init: fakeInit,
-  getDevices: () => _devices
+  writeMatrix: writeMatrix
 };

@@ -6,8 +6,9 @@
 </head>
 <body>
   <script>
-    if (typeof exports === 'object')
-      require('nw.gui').Window.get().showDevTools();
+  try {
+    require('nw.gui').Window.get().showDevTools();
+  } catch (err) {}
   </script>
   <script src="dist/main.js"></script>
 </body>

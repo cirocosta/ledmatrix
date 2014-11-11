@@ -6,19 +6,30 @@ $base__font-size: 62.5%;
 
 html {
   font-size: $base__font-size;
+  box-shadow: inset .2rem -.2rem 1.6rem rgb(236, 236, 236) !important;
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
   font-family: 'Helvetica Neue', Helvetica, sans-serif;
   font-size: 2rem;
   margin: 0;
+  padding: 4.5rem 0 0 0;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-ul {
-  margin: 0;
-  padding: 0;
+.Application {
+  height: 100%;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style-type: none;
+  }
 }
 
-li {
-  list-style-type: none;
-}

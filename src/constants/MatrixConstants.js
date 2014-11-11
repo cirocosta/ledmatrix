@@ -1,7 +1,8 @@
-'use strict';
+var keyMirror = require('../utils/keyMirror');
 
-var keyMirror = require('react/lib/keyMirror');
-
-module.exports = keyMirror({
+module.exports = keyMirror('MATRIX', {
   UPDATE: null,
+  UPDATE_EXTEND: null,
+  RESET: null,
+  ACTIVATE_CELL: null,
 });

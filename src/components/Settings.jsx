@@ -1,79 +1,88 @@
-/**
- * @jsx React.DOM
- */
-
-'use strict';
-
 require('./Settings.scss');
 
 var React = require('react');
-var SettingsStore = require('../stores/SettingsStore');
-var CONSTANTS = require('../constants/Constants');
-var Actions = require('../actions/Actions');
+var CONSTANTS = require('../constants');
+var cx = require('../utils/cx');
+var Device = require('./Device.jsx');
+var {storesGlueMixin} = require('../mixins');
+var {AppStore, DeviceStore} = require('../stores');
+var {AppActions} = require('../actions');
+var assign = require('object-assign');
 
 var Settings = React.createClass({
-  getInitialState: () => SettingsStore.getSettingsState(),
+  mixins: [storesGlueMixin(AppStore, DeviceStore)],
+
+  // TODO do a better thing for this ...
+  getStateFromStores () {
+    return assign({}, AppStore.getAppState(), DeviceStore.getDevicesState());
+  },
 
   handleClick (e) {
     switch (e.target.dataset.name) {
-      case 'snake':
-      Actions.Settings.changeMatrixManager(CONSTANTS.Settings.SNAKE);
+      case 'ctrl-snake':
+      AppActions.changeMatrixCtrl(CONSTANTS.App.CTRL_SNAKE);
       break;
 
-      case 'click':
-      Actions.Settings.changeMatrixManager(CONSTANTS.Settings.CLICK);
+      case 'ctrl-click':
+      AppActions.changeMatrixCtrl(CONSTANTS.App.CTRL_CLICK);
       break;
 
-      case 'pre':
-      Actions.Settings.changeVisualization(CONSTANTS.Settings.TYPE_PRE_MATRIX);
+      case 'vis-pre':
+      AppActions.changeMatrixVis(CONSTANTS.App.VIS_PRE);
       break;
 
-      case 'matrix':
-      Actions.Settings.changeVisualization(CONSTANTS.Settings.TYPE_REACT_MATRIX);
+      case 'vis-react-matrix':
+      AppActions.changeMatrixVis(CONSTANTS.App.VIS_REACT_MATRIX);
       break;
     }
   },
 
-  componentDidMount () {
-    SettingsStore.addChangeListener(this.handleChange);
-  },
+  _getDevices () {
+    var ids = Object.keys(this.state.devices);
+    var devicesElem = ids.length ?
+      ids.map((id, i) => <li key={i}><Device pnpId={id} /></li>) :
+      <li>No Devices :(</li>;
 
-  componentDidUnmount () {
-    SettingsStore.removeChangeListener(this.handleChange);
-  },
-
-  handleChange () {
-    this.setState(SettingsStore.getSettingsState());
+    return devicesElem;
   },
 
   render () {
-    var vis = this.state.visualization !== CONSTANTS.Settings.TYPE_PRE_MATRIX ?
-      <li key={4} data-name="pre" onClick={this.handleClick}>Pre</li> :
-      <li key={4} data-name="matrix" onClick={this.handleClick}>Matrix</li>;
-
-    var devices = !this.state.devices.length ?
-      <li>No devices</li> :
-      this.state.devices.map((device, i) => <li key={i*10}>Device {i}</li>);
+    var devices = this._getDevices();
 
     return (
-      <ul className="Settings">
-        <li key={1}
-            data-name="devices">
-          Devices
-          <ul className="devices">
-            {devices}
+      <article className="Settings">
+        <h1>SETTINGS</h1>
+        <p>Devices connected:</p>
+        <ul>
+          {devices}
+        </ul>
+
+        <section>
+          <h2>Visualization</h2>
+          <p className='details'>Change what is the current visualization</p>
+          <ul>
+            <li className={cx({active: this.state.vis === CONSTANTS.App.VIS_REACT_MATRIX})}
+                onClick={this.handleClick} data-name='vis-react-matrix'
+                key={1}>React-Matrix</li>
+            <li className={cx({active: this.state.vis === CONSTANTS.App.VIS_PRE})}
+                onClick={this.handleClick} data-name='vis-pre'
+                key={2}>Pre</li>
           </ul>
-        </li>
-        <li key={2}
-            data-name="snake"
-            onClick={this.handleClick}>
-          Snake Game</li>
-        <li key={3}
-            data-name="click"
-            onClick={this.handleClick}>
-          Click</li>
-        {vis}
-      </ul>
+        </section>
+
+        <section>
+          <h2>Control</h2>
+          <p className='details'>Define what is going to control the matrix</p>
+          <ul>
+            <li className={cx({active: this.state.ctrl === CONSTANTS.App.CTRL_CLICK})}
+                onClick={this.handleClick} data-name='ctrl-click'
+                key={11}>Click</li>
+            <li className={cx({active: this.state.ctrl === CONSTANTS.App.CTRL_SNAKE})}
+                onClick={this.handleClick} data-name='ctrl-snake'
+                key={13}>Snake Game</li>
+          </ul>
+        </section>
+      </article>
     );
   }
 });

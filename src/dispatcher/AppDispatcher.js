@@ -1,8 +1,6 @@
-'use strict';
-
+var GeneralConstants = require('../constants/GeneralConstants');
 var Dispatcher = require('./Dispatcher');
-var CONSTANTS = require('../constants/Constants');
-var merge = require('react/lib/merge');
+var assign = require('object-assign');
 
 /**
  * Bridge function between the views (which will
@@ -12,20 +10,20 @@ var merge = require('react/lib/merge');
  * the payload will know how to deal with this
  * kind of action.
  */
-var AppDispatcher = merge(Dispatcher.prototype, {
+var AppDispatcher = assign({
   handleViewAction (action) {
     this.dispatch({
-      source: CONSTANTS.VIEW_ACTION,
+      source: GeneralConstants.VIEW_ACTION,
       action: action
     });
   },
 
   handleDeviceAction (action) {
     this.dispatch({
-      source: CONSTANTS.DEVICE_ACTION,
+      source: GeneralConstants.DEVICE_ACTION,
       action: action
     });
   }
-});
+}, Dispatcher.prototype);
 
 module.exports = AppDispatcher;

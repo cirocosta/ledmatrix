@@ -1,17 +1,21 @@
-'use strict';
+/**
+ * Holds application level state and other
+ * more general things related to the whole UI.
+ */
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var CONSTANTS = require('../constants/Constants');
-var merge = require('react/lib/merge');
+var Store = require('./Store');
+var CONSTANTS = require('../constants');
+var assign = require('object-assign');
 
 var gui = process.env.NODE_ENV !== 'web' ?
   require('nw.gui') :
   function () {};
 
-var CHANGE_EVENT = 'change';
-var _windowState = {
+var _appState = {
   maximized: false,
+  vis: null,
+  ctrl: null
 };
 
 
@@ -22,39 +26,39 @@ var _windowState = {
  * `dispatch` method.
  */
 
-var AppStore = merge(EventEmitter.prototype, {
-  getWindowState: () => _windowState,
-
-  emitChange () {
-    this.emit(CHANGE_EVENT);
-  },
-
-  addChangeListener (cb) {
-    this.on(CHANGE_EVENT, cb);
-  },
-
-  removeChangeListener (cb) {
-    this.removeListener(CHANGE_EVENT, cb);
-  },
+var AppStore = assign({
+  getAppState: () => _appState,
 
   dispatcherIndex: AppDispatcher.register((payload) => {
     var action = payload.action;
 
     switch (action.actionType) {
-      case CONSTANTS.Gui.TOGGLE_MAXIMIZATION:
-        if(_windowState.maximized)
+      case CONSTANTS.App.TOGGLE_MAXIMIZATION:
+        if (_appState.maximized)
           gui.Window.get().unmaximize();
         else
           gui.Window.get().maximize();
 
-        _windowState.maximized = !_windowState.maximized;
+        _appState.maximized = !_appState.maximized;
+        AppStore.emitChange();
+        break;
+
+      case CONSTANTS.App.CHANGE_VIS:
+        _appState.vis = action.type;
+
+        AppStore.emitChange();
+        break;
+
+      case CONSTANTS.App.CHANGE_CTRL:
+        _appState.ctrl = action.type;
+
         AppStore.emitChange();
         break;
     }
 
     return true;
   })
-});
+}, Store);
 
 
 module.exports = AppStore;
