@@ -22,6 +22,26 @@ var DeviceActions = {
       priority: priority
     });
   },
+
+  socketConnect (socket) {
+    AppDispatcher.handleDeviceAction({
+      actionType: CONSTANTS.Device.SOCKET_CONNECTED,
+      priority: priority
+    });
+  },
+
+  socketDisconnect (socket) {
+    AppDispatcher.handleDeviceAction({
+      actionType: CONSTANTS.Device.SOCKET_CONNECTED,
+      priority: priority
+    });
+  },
+
+  exposeToLocal () {
+    AppDispatcher.handleDeviceAction({
+      actionType: CONSTANTS.Device.EXPOSE_TO_LOCAL
+    });
+  },
 };
 
 module.exports = DeviceActions;

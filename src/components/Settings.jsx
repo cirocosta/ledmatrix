@@ -6,7 +6,7 @@ var cx = require('../utils/cx');
 var Device = require('./Device.jsx');
 var {storesGlueMixin} = require('../mixins');
 var {AppStore, DeviceStore} = require('../stores');
-var {AppActions} = require('../actions');
+var {AppActions, DeviceActions} = require('../actions');
 var assign = require('object-assign');
 
 var Settings = React.createClass({
@@ -37,17 +37,25 @@ var Settings = React.createClass({
     }
   },
 
+  handleExposeToLocal () {
+    if (!this.state.connection)
+      return DeviceActions.exposeToLocal();
+  },
+
   _getDevices () {
     var ids = Object.keys(this.state.devices);
     var devicesElem = ids.length ?
-      ids.map((id, i) => <li key={i}><Device pnpId={id} /></li>) :
-      <li>No Devices :(</li>;
+      ids.map((id, i) => <li key={i}><Device deviceId={id} type='vis' /></li>) :
+      <li>0 Arduinos</li>;
 
     return devicesElem;
   },
 
   render () {
     var devices = this._getDevices();
+    var socketsText = !this.state.sockets.connection ?
+      'Expose to Local' :
+      this.state.sockets.url;
 
     return (
       <article className="Settings">
@@ -57,6 +65,9 @@ var Settings = React.createClass({
           <ul>
             {devices}
           </ul>
+          <button onClick={this.handleExposeToLocal}>
+            {socketsText}
+          </button>
         </details>
 
         <details>

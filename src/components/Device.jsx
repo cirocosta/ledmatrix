@@ -6,7 +6,8 @@ var {DeviceActions} = require('../actions');
 
 var Device = React.createClass({
   propTypes: {
-    pnpId: React.PropTypes.string.isRequired
+    deviceId: React.PropTypes.string.isRequired,
+    type: React.PropTypes.oneOf(['vis', 'ctrl']).isRequired
   },
 
   mixins: [storesGlueMixin(DeviceStore)],
@@ -20,7 +21,7 @@ var Device = React.createClass({
   render () {
     return (
       <div className='Device'>
-        <p>{this.props.pnpId.substring(0, 11)}</p>
+        <p>{this.props.deviceId.substring(0, 11)}</p>
         <label>Use as Extension</label>
         <input type="checkbox"
                checked={this.state.priority === 1}

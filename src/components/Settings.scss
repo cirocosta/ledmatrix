@@ -22,6 +22,10 @@
     text-align: left;
     margin-bottom: 0.25rem;
     line-height: 1.25;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   summary {
@@ -30,6 +34,10 @@
     color: rgb(82, 82, 82);
     font-weight: bolder;
     cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   p.details {

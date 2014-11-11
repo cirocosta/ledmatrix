@@ -11,6 +11,10 @@ var cfg = {
   externals: {
     yaspm: 'commonjs yaspm',
     mdns: 'commonjs mdns',
+    express: 'commonjs express',
+    'socket.io': 'commonjs socket.io',
+    portscanner: 'commonjs portscanner',
+    qrcode: 'commonjs qrcode',
   },
   target: process.env.NODE_ENV === 'web' ? 'web' : 'node-webkit',
   module: {

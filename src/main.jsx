@@ -2,6 +2,7 @@
  * Entry point for the application
  */
 
+require('es6-promise').polyfill();
 var React = require('react');
 var Application = require('./components/Application.jsx');
 
