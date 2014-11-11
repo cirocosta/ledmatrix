@@ -1,13 +1,16 @@
 .Settings {
+  p.details {
+    color: black;
+    font-style: italic;
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
   .active {
     color: gray;
   }
 
   li {
     cursor: pointer;
-
-    &.device {
-      overflow-wrap: break-word;
-    }
   }
 }

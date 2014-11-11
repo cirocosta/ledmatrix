@@ -1,5 +1,5 @@
 .Visual {
-  .Grid {
+  .Matrix {
     stroke: rgb(201, 201, 201);
     fill: antiquewhite;
   }
@@ -8,5 +8,15 @@
     &.active {
       fill: rgb(255, 81, 81);
     }
+  }
+
+  button {
+    border: none;
+    background: #8BACC2;
+    color: white;
+    font-weight: bolder;
+    font-size: 2rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
   }
 }

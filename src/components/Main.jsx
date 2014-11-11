@@ -1,8 +1,4 @@
 /**
- * @jsx React.DOM
- */
-
-/**
  * Keeps a well structured 2 blocks main view.
  */
 

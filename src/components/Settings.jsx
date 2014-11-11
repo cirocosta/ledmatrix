@@ -1,12 +1,9 @@
-/**
- * @jsx React.DOM
- */
-
 require('./Settings.scss');
 
 var React = require('react');
 var CONSTANTS = require('../constants');
 var cx = require('../utils/cx');
+var Device = require('./Device.jsx');
 var {storesGlueMixin} = require('../mixins');
 var {AppStore, DeviceStore} = require('../stores');
 var {AppActions} = require('../actions');
@@ -30,10 +27,6 @@ var Settings = React.createClass({
       AppActions.changeMatrixCtrl(CONSTANTS.App.CTRL_CLICK);
       break;
 
-      case 'ctrl-drag':
-      AppActions.changeMatrixCtrl(CONSTANTS.App.CTRL_DRAG);
-      break;
-
       case 'vis-pre':
       AppActions.changeMatrixVis(CONSTANTS.App.VIS_PRE);
       break;
@@ -47,7 +40,7 @@ var Settings = React.createClass({
   _getDevices () {
     var ids = Object.keys(this.state.devices);
     var devicesElem = ids.length ?
-      ids.map((id, i) => <li className='device' key={i}>{id}</li>) :
+      ids.map((id, i) => <li key={i}><Device pnpId={id} /></li>) :
       <li>No Devices :(</li>;
 
     return devicesElem;
@@ -66,7 +59,7 @@ var Settings = React.createClass({
 
         <section>
           <h2>Visualization</h2>
-          <p>Change what is the current visualization</p>
+          <p className='details'>Change what is the current visualization</p>
           <ul>
             <li className={cx({active: this.state.vis === CONSTANTS.App.VIS_REACT_MATRIX})}
                 onClick={this.handleClick} data-name='vis-react-matrix'
@@ -79,14 +72,11 @@ var Settings = React.createClass({
 
         <section>
           <h2>Control</h2>
-          <p>Define what is going to control the matrix</p>
+          <p className='details'>Define what is going to control the matrix</p>
           <ul>
             <li className={cx({active: this.state.ctrl === CONSTANTS.App.CTRL_CLICK})}
                 onClick={this.handleClick} data-name='ctrl-click'
                 key={11}>Click</li>
-            <li className={cx({active: this.state.ctrl === CONSTANTS.App.CTRL_DRAG})}
-                onClick={this.handleClick} data-name='ctrl-drag'
-                key={12}>Drag</li>
             <li className={cx({active: this.state.ctrl === CONSTANTS.App.CTRL_SNAKE})}
                 onClick={this.handleClick} data-name='ctrl-snake'
                 key={13}>Snake Game</li>

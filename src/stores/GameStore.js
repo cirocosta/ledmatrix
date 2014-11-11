@@ -13,6 +13,7 @@ var Store = require('./Store');
 var CONSTANTS = require('../constants');
 var assign = require('object-assign');
 var rafLoop = require('../utils/rafLoop')(5);
+var ledNumbers = require('../utils/ledNumbers');
 var keymaster = require('keymaster');
 
 var _gameState = {
@@ -55,12 +56,6 @@ AppStore.addChangeListener(() => {
   }
 });
 
-/**
- * Registers itself with AppDispatcher so that
- * we are going to receive action's painted
- * payload from the call of appdispatcher's
- * `dispatch` method.
- */
 
 var GameStore = assign({
   getGameState: () => _gameState,
@@ -86,6 +81,7 @@ var GameStore = assign({
 
       case CONSTANTS.Game.RESET:
         _game = SnakeGame.prepare(10, 10, _cbObj, GameActions.fruitEaten, GameActions.crash);
+        MatrixActions.updateExtendMatrix(ledNumbers.builder('0'));
 
         if (!_gameState.running)
           GameActions.startGame();
@@ -102,13 +98,18 @@ var GameStore = assign({
       case CONSTANTS.Game.CRASH:
         cancelAnimationFrame(rafLoop.rAFid);
         _gameState.running = false;
+        MatrixActions.updateExtendMatrix(ledNumbers.X);
 
         GameStore.emitChange();
         break;
 
       case CONSTANTS.Game.FRUIT_EATEN:
         _gameState.fruits = action.fruits;
-
+        MatrixActions.updateExtendMatrix(ledNumbers
+                                          .builder
+                                          .apply(null,
+                                                 (action.fruits + '')
+                                                    .split('')));
         GameStore.emitChange();
         break;
     }

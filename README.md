@@ -2,6 +2,8 @@
 
 > node-webkit and (restricted) web Application for controlling a led matrix and also playing games.
 
+> currently, only suports x64 linux (due to the need of a proper `postinstall.sh` script,  **you** could start fixing this!)
+
 ## Building
 
 We currently only support the full install on 64 bits Linux as we are dealing with a `postinstall` script specifically for Linux distributions to be able to provide a correct use of node-serialport along with node-webkit. Fork it to help us expand to other architectures!

@@ -11,7 +11,7 @@
  * a callback.
  */
 
-var merge = require('react/lib/merge');
+var assign = require('object-assign');
 
 var _callbacks = [];
 var _promises = [];
@@ -23,9 +23,7 @@ var _promises = [];
  */
 var Dispatcher = function () {};
 
-// This is what we'd do in ES6 with
-// Object.assign(ClassName.prototype, {stuff}).
-Dispatcher.prototype = merge(Dispatcher.prototype, {
+Dispatcher.prototype = assign({
   /**
    * Register's the Store's callback function to
    * be called whenever an action happens so
@@ -72,6 +70,6 @@ Dispatcher.prototype = merge(Dispatcher.prototype, {
 
     _promises = [];
   }
-});
+}, Dispatcher.prototype);
 
 module.exports = Dispatcher;

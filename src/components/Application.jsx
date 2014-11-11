@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 require('./Application.scss');
 
 var React = require('react');

@@ -9,14 +9,18 @@
 
 module.exports = (namespace, obj) => {
   var ret = {};
+  var useNamespace = toString.call(namespace) === '[object String]' ?
+    true :
+    (obj = namespace, false);
 
   for (var key in obj) {
     if (!obj.hasOwnProperty(key))
       continue;
 
-    ret[key] = !obj[key] ?
-      namespace + '_' + key :
-      obj[key];
+    if (useNamespace)
+      ret[key] = !obj[key] ? namespace + '_' + key : obj[key];
+    else
+      ret[key] = !obj[key] ? key : obj[key];
   }
 
   return ret;

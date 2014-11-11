@@ -30,6 +30,7 @@ var _matrixToHex = (matrix) => {
 };
 
 var writeMatrix = (device, matrix) => {
+  console.log('DEVICE:', matrix);
   device.write(_matrixToHex(matrix));
 };
 

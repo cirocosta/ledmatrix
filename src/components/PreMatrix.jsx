@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 require('./PreMatrix.scss');
 
 var React = require('react');

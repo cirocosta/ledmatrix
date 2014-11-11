@@ -7,73 +7,69 @@
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var Store = require('./Store');
+var {MatrixActions} = require('../actions');
 var CONSTANTS = require('../constants');
 var assign = require('object-assign');
 
 var clone = (obj) => JSON.parse(JSON.stringify(obj));
 
-var MATRIX_SIZE = 10;
-var _INITIAL_MATRIX = [];
-var _matrix;
+var _INITIAL_MATRIX = [
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+];
 
-/**
- * Populating the matrix
- */
-for(var i = 0; i < MATRIX_SIZE; i++) {
-  _INITIAL_MATRIX[i] = [];
-  for(var j = 1; j < MATRIX_SIZE; j++) {
-    _INITIAL_MATRIX[i].push(0);
-  }
-}
-
-/**
- * Create a stateful _matrix, different object
- * from _INITIAL_MATRIX - never touched.
- */
-_matrix = clone(_INITIAL_MATRIX);
-
-/**
- * Registers itself with AppDispatcher so that
- * we are going to receive action's painted
- * payload from the call of appdispatcher's
- * `dispatch` method.
- */
+var _matrices = [
+  clone(_INITIAL_MATRIX),
+];
 
 var MatrixStore = assign({
-  getMatrixState () {
+  getMatricesState () {
     return {
-      matrix: _matrix
+      matrices: _matrices
     }
   },
 
-  getInitialMatrix: () => _INITIAL_MATRIX,
-
   dispatcherIndex: AppDispatcher.register((payload) => {
-    var action = payload.action;
+    var {action} = payload;
 
     switch (action.actionType) {
-      case CONSTANTS.Matrix.RESET:
-        _matrix = clone(_INITIAL_MATRIX);
+      case CONSTANTS.Matrix.UPDATE:
+        _matrices[0] = action.matrix;
 
         MatrixStore.emitChange();
         break;
 
-      case CONSTANTS.Matrix.UPDATE:
-        _matrix = action.matrix;
+      case CONSTANTS.Matrix.UPDATE_EXTEND:
+        _matrices[1] = action.matrix;
 
         MatrixStore.emitChange();
+        break;
+
+      case CONSTANTS.Matrix.RESET:
+        var matrix = clone(_INITIAL_MATRIX);
+
+        MatrixActions.updateMatrix(matrix);
         break;
 
       case CONSTANTS.Matrix.ACTIVATE_CELL:
+        var matrix = clone(_matrices[0]);
         var x = action.coordinates[1];
         var y = action.coordinates[0];
 
         if (action.onlyOne)
-          _matrix = clone(_INITIAL_MATRIX);
+          matrix = clone(_INITIAL_MATRIX);
 
-        _matrix[x][y] = 1;
+        matrix[x][y] = +!matrix[x][y];
 
-        MatrixStore.emitChange();
+        MatrixActions.updateMatrix(matrix);
         break;
     }
 

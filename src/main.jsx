@@ -1,15 +1,11 @@
 /**
- * @jsx React.DOM
- */
-
-/**
  * Entry point for the application
  */
 
 var React = require('react');
 var Application = require('./components/Application.jsx');
 
-React.renderComponent(
+React.render(
   <Application />,
   document.body
 );

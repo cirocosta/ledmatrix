@@ -8,7 +8,6 @@ module.exports = keyMirror('APP', {
 
   CTRL_CLICK: false,
   CTRL_SNAKE: false,
-  CTRL_DRAG: false,
 
   VIS_PRE: false,
   VIS_REACT_MATRIX: false,

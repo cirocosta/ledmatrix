@@ -9,6 +9,13 @@ var MatrixActions = {
     });
   },
 
+  updateExtendMatrix (matrix) {
+    AppDispatcher.handleViewAction({
+      actionType: CONSTANTS.Matrix.UPDATE_EXTEND,
+      matrix: matrix
+    });
+  },
+
   resetMatrix () {
     AppDispatcher.handleViewAction({
       actionType: CONSTANTS.Matrix.RESET,

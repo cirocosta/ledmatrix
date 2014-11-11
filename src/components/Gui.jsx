@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 require('./Gui.scss');
 
 var React = require('react');

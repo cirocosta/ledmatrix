@@ -1,6 +1,6 @@
 var GeneralConstants = require('../constants/GeneralConstants');
 var Dispatcher = require('./Dispatcher');
-var merge = require('react/lib/merge');
+var assign = require('object-assign');
 
 /**
  * Bridge function between the views (which will
@@ -10,7 +10,7 @@ var merge = require('react/lib/merge');
  * the payload will know how to deal with this
  * kind of action.
  */
-var AppDispatcher = merge(Dispatcher.prototype, {
+var AppDispatcher = assign({
   handleViewAction (action) {
     this.dispatch({
       source: GeneralConstants.VIEW_ACTION,
@@ -24,6 +24,6 @@ var AppDispatcher = merge(Dispatcher.prototype, {
       action: action
     });
   }
-});
+}, Dispatcher.prototype);
 
 module.exports = AppDispatcher;

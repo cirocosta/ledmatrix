@@ -15,6 +15,13 @@ var DeviceActions = {
       id: id
     });
   },
+
+  setPriority (priority) {
+    AppDispatcher.handleDeviceAction({
+      actionType: CONSTANTS.Device.SET_PRIORITY,
+      priority: priority
+    });
+  },
 };
 
 module.exports = DeviceActions;

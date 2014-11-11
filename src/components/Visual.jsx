@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 require('./Visual.scss');
 
 var React = require('react');
@@ -21,13 +17,13 @@ var Visual = React.createClass({
 
   getStateFromStores () {
     return assign({}, AppStore.getAppState(),
-                      MatrixStore.getMatrixState());
+                      MatrixStore.getMatricesState());
   },
 
   handleReactMatrixClick (cellState) {
     switch (this.state.ctrl) {
       case CONSTANTS.App.CTRL_CLICK:
-        MatrixActions.activateCell([cellState.x, cellState.y], true);
+        MatrixActions.activateCell([cellState.x, cellState.y], false);
         break;
     }
   },
@@ -54,12 +50,12 @@ var Visual = React.createClass({
 
     switch (this.state.vis) {
       case CONSTANTS.App.VIS_PRE:
-        matrixVis = <PreMatrix matrix={this.state.matrix} />;
+        matrixVis = <PreMatrix matrix={this.state.matrices[0]} />;
         break;
 
       case CONSTANTS.App.VIS_REACT_MATRIX:
         matrixVis = <ReactMatrix squareSize={23}
-                                 matrix={this.state.matrix}
+                                 matrix={this.state.matrices[0]}
                                  onCellClick={this.handleReactMatrixClick}
                                  cellStates={{1: 'active'}} />;
         break;
@@ -67,13 +63,20 @@ var Visual = React.createClass({
 
     switch (this.state.ctrl) {
       case CONSTANTS.App.CTRL_CLICK:
-        controls = <button onClick={this.handleCtrlClick.bind(null, null)}>Reset</button>;
+        controls = (
+          <section>
+            <button onClick={this.handleCtrlClick.bind(null, null)}>Reset</button>
+          </section>
+        );
         break;
 
       case CONSTANTS.App.CTRL_SNAKE:
-        controls =
-          [<button key={1} onClick={this.handleCtrlClick.bind(null, CONSTANTS.Game.START)}>Start</button>,
-           <button key={2} onClick={this.handleCtrlClick.bind(null, CONSTANTS.Game.RESET)}>Reset</button>];
+        controls = (
+          <section>
+            <button onClick={this.handleCtrlClick.bind(null, CONSTANTS.Game.START)}>Start</button>
+            <button onClick={this.handleCtrlClick.bind(null, CONSTANTS.Game.RESET)}>Reset</button>
+          </section>
+        );
         break;
     }
 
