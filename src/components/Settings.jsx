@@ -52,36 +52,51 @@ var Settings = React.createClass({
     return (
       <article className="Settings">
         <h1>SETTINGS</h1>
-        <p>Devices connected:</p>
-        <ul>
-          {devices}
-        </ul>
+        <details>
+          <summary>Devices</summary>
+          <ul>
+            {devices}
+          </ul>
+        </details>
 
-        <section>
-          <h2>Visualization</h2>
+        <details>
+          <summary>Visualization</summary>
           <p className='details'>Change what is the current visualization</p>
           <ul>
-            <li className={cx({active: this.state.vis === CONSTANTS.App.VIS_REACT_MATRIX})}
-                onClick={this.handleClick} data-name='vis-react-matrix'
-                key={1}>React-Matrix</li>
-            <li className={cx({active: this.state.vis === CONSTANTS.App.VIS_PRE})}
-                onClick={this.handleClick} data-name='vis-pre'
-                key={2}>Pre</li>
+            <li key={1}>
+              <button className={cx({active: this.state.vis === CONSTANTS.App.VIS_REACT_MATRIX})}
+                      onClick={this.handleClick}
+                      data-name='vis-react-matrix'>
+                React-Matrix
+              </button>
+            </li>
+            <li key={2}>
+              <button className={cx({active: this.state.vis === CONSTANTS.App.VIS_PRE})}
+                      onClick={this.handleClick} data-name='vis-pre'>
+                Pre
+              </button>
+            </li>
           </ul>
-        </section>
+        </details>
 
-        <section>
-          <h2>Control</h2>
+        <details>
+          <summary>Control</summary>
           <p className='details'>Define what is going to control the matrix</p>
           <ul>
-            <li className={cx({active: this.state.ctrl === CONSTANTS.App.CTRL_CLICK})}
-                onClick={this.handleClick} data-name='ctrl-click'
-                key={11}>Click</li>
-            <li className={cx({active: this.state.ctrl === CONSTANTS.App.CTRL_SNAKE})}
-                onClick={this.handleClick} data-name='ctrl-snake'
-                key={13}>Snake Game</li>
+            <li key={11}>
+              <button className={cx({active: this.state.ctrl === CONSTANTS.App.CTRL_CLICK})}
+                      onClick={this.handleClick} data-name='ctrl-click'>
+                Click
+              </button>
+            </li>
+            <li key={13}>
+              <button className={cx({active: this.state.ctrl === CONSTANTS.App.CTRL_SNAKE})}
+                      onClick={this.handleClick} data-name='ctrl-snake'>
+                Snake Game
+              </button>
+            </li>
           </ul>
-        </section>
+        </details>
       </article>
     );
   }

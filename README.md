@@ -26,6 +26,13 @@ For nodewebkit:
 $ NODE_ENV=nodewebkit webpack -p
 ```
 
+## `dns_sd.h`
+
+This lib also depends on `dns_sd` header.
+
+```sh
+sudo aptitude install libavahi-compat-libdnssd-dev
+```
 
 ## Related
 

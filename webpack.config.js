@@ -9,7 +9,8 @@ var cfg = {
     filename: 'main.js',
   },
   externals: {
-    yaspm: 'commonjs yaspm'
+    yaspm: 'commonjs yaspm',
+    mdns: 'commonjs mdns',
   },
   target: process.env.NODE_ENV === 'web' ? 'web' : 'node-webkit',
   module: {
