@@ -2,10 +2,14 @@ var CONSTANTS = require('../constants');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 
 var DeviceActions = {
+  /**
+   * Arduino
+   */
+
   addDevice (device) {
     AppDispatcher.handleDeviceAction({
       actionType: CONSTANTS.Device.ADD,
-      device: device.device
+      device: device
     });
   },
 
@@ -16,26 +20,16 @@ var DeviceActions = {
     });
   },
 
-  setPriority (priority) {
+  togglePriority (id) {
     AppDispatcher.handleDeviceAction({
-      actionType: CONSTANTS.Device.SET_PRIORITY,
-      priority: priority
+      actionType: CONSTANTS.Device.TOGGLE_PRIORITY,
+      id: id
     });
   },
 
-  socketConnect (socket) {
-    AppDispatcher.handleDeviceAction({
-      actionType: CONSTANTS.Device.SOCKET_CONNECTED,
-      priority: priority
-    });
-  },
-
-  socketDisconnect (socket) {
-    AppDispatcher.handleDeviceAction({
-      actionType: CONSTANTS.Device.SOCKET_CONNECTED,
-      priority: priority
-    });
-  },
+  /**
+   * Sockets
+   */
 
   exposeToLocal () {
     AppDispatcher.handleDeviceAction({

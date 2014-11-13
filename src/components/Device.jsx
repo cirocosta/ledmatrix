@@ -7,26 +7,29 @@ var {DeviceActions} = require('../actions');
 var Device = React.createClass({
   propTypes: {
     deviceId: React.PropTypes.string.isRequired,
-    type: React.PropTypes.oneOf(['vis', 'ctrl']).isRequired
   },
 
   mixins: [storesGlueMixin(DeviceStore)],
 
   getStateFromStores: DeviceStore.getDevicesState,
 
-  handleCheck (e) {
-    DeviceActions.setPriority(e.target.checked ? 1 : 0);
+  handleClick (e) {
+    DeviceActions.togglePriority(this.props.deviceId);
   },
 
   render () {
+    var device = this.state.devices[this.props.deviceId];
+    var labelType = <span className="label__type">{device.type}</span>;
+    var labelPriority = device.type === 'vis' ?
+      <span className="label__priority">{device.priority}</span> :
+      null;
+
     return (
-      <div className='Device'>
-        <p>{this.props.deviceId.substring(0, 11)}</p>
-        <label>Use as Extension</label>
-        <input type="checkbox"
-               checked={this.state.priority === 1}
-               onChange={this.handleCheck} />
-      </div>
+      <p className="Device" onClick={this.handleClick}>
+        {this.props.deviceId.substring(0, 11)}
+        {labelType}
+        {labelPriority}
+      </p>
     );
   }
 });

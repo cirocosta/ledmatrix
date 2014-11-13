@@ -16,27 +16,30 @@ var isEmpty = (obj) => obj ? !Object.keys(obj).length : true;
 
 DeviceManager.init();
 
-// socket clients connected to the application
-var _sockets = {'connection': null, url: null, sockets: {}};
+// info about sockets connection
+var _sockets = {'connection': null, url: null};
 // physical devices (arduinos) connected through
-// serialport
+// serialport as well as socket connections.
 var _devices = {};
-// priority given to physical devices
-var _priority = 0;
 
-var writeToDevices = (devices, matrix) => {
+var _writeToDevices = (devices, matrix, priority) => {
   for (var id in devices)
-    DeviceManager.writeMatrix(_devices[id], matrix);
+    if (_devices[id].priority === priority)
+      DeviceManager.writeMatrix(_devices[id], matrix);
 };
+
 
 var DeviceStore = assign({
   getDevicesState () {
     return {
       devices: _devices,
-      priority: _priority,
       sockets: _sockets,
     };
   },
+
+  // getSingleDeviceState (id) {
+  //   devices.filter()
+  // },
 
   dispatcherIndex: AppDispatcher.register((payload) => {
     var {action} = payload;
@@ -54,7 +57,8 @@ var DeviceStore = assign({
         break;
 
       case CONSTANTS.Device.ADD:
-        _devices[action.device.pnpId] = action.device;
+        _devices[action.device.id] = action.device;
+        _devices[action.device.id].priority = 0;
         DeviceStore.emitChange();
         break;
 
@@ -66,30 +70,18 @@ var DeviceStore = assign({
         DeviceStore.emitChange();
         break;
 
-      case CONSTANTS.Matrix.UPDATE:
-        if (_priority !== 1)
-          writeToDevices(_devices, action.matrix);
-        break;
-
-      case CONSTANTS.Matrix.UPDATE_EXTEND:
-        if (_priority === 1)
-          writeToDevices(_devices, action.matrix);
-        break;
-
-      case CONSTANTS.Device.SET_PRIORITY:
-        _priority = action.priority;
+      case CONSTANTS.Device.TOGGLE_PRIORITY:
+        _devices[action.id].priority = +!_devices[action.id].priority;
 
         DeviceStore.emitChange();
         break;
 
-      case CONSTANTS.Device.SOCKET_CONNECT:
-        console.log('SOCKET CONNECTED!');
-        console.log(action.socket);
+      case CONSTANTS.Matrix.UPDATE:
+        _writeToDevices(_devices, action.matrix, 0);
         break;
 
-      case CONSTANTS.Device.SOCKET_DISCONNECT:
-        console.log('SOCKET DISONNECTED!');
-        console.log(action.socket);
+      case CONSTANTS.Matrix.UPDATE_EXTEND:
+        _writeToDevices(_devices, action.matrix, 1);
         break;
     }
 

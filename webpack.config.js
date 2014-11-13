@@ -33,12 +33,7 @@ var cfg = {
         loader: 'jsx-loader?harmony'
       }
     ]
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      '__NODEWEBKIT__': process.env.NODE_ENV === 'nodewebkit',
-    })
-  ]
+  }
 };
 
 module.exports = cfg;

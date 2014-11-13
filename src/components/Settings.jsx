@@ -52,9 +52,10 @@ var Settings = React.createClass({
   },
 
   render () {
+    var sockets = null;
     var devices = this._getDevices();
     var socketsText = !this.state.sockets.connection ?
-      'Expose to Local' :
+      'Expose to Network' :
       this.state.sockets.url;
 
     return (
@@ -68,6 +69,9 @@ var Settings = React.createClass({
           <button onClick={this.handleExposeToLocal}>
             {socketsText}
           </button>
+          <ul>
+            {sockets}
+          </ul>
         </details>
 
         <details>

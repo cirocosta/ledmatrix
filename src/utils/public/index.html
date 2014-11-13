@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect(window.location.path, {
+      transports: ['websocket']
+    });
+
+    socket.on('connect', function () {
+      console.log('connected!');
+    });
+  </script>
+</body>
+</html>

@@ -39,7 +39,6 @@ var Visual = React.createClass({
           GameActions.resetGame();
         else if (type === CONSTANTS.Game.START)
           GameActions.startGame();
-
         break;
     }
   },

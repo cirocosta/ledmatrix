@@ -3,6 +3,7 @@
  */
 
 var mdns = require('mdns');
+var fs = require('fs');
 var express = require('express');
 var ps = require('portscanner');
 var io = require('socket.io');
@@ -10,6 +11,7 @@ var path = require('path');
 var {DeviceActions} = require('../actions');
 
 var app = express();
+var DIRNAME = path.resolve(path.dirname(), './src/utils');
 var localIp = _getLocalIp();
 var HOST = '0.0.0.0';
 var server;
@@ -24,11 +26,26 @@ function _getLocalIp () {
   return wlan0.length > 1 ? wlan0[0].address : '';
 }
 
+function _respond (res) {
+  var location = DIRNAME + '/public/index.html';
+  var stat = fs.statSync(location);
+
+  res.writeHead(200, {
+    'Content-Type': 'text/html',
+    'Content-Length': stat.size
+  });
+  fs.createReadStream(location).pipe(res);
+}
+
 module.exports = {
   init () {
     return new Promise((resolver) => {
       ps.findAPortNotInUse(3000, 3010, HOST, function (err, port) {
         if (err) resolver.reject(err);
+
+        app.get('/', (req, res) => {
+          _respond(res);
+        });
 
         server = app.listen(port, HOST, function () {
           var url = "http://" + _getLocalIp() + ':' + server.address().port;
@@ -36,10 +53,11 @@ module.exports = {
           _io = io(server);
           _io.set('transports', 'websocket');
           _io.sockets.on('connection', (socket) => {
-            DeviceActions.socketConnect(socket);
+            console.log(socket);
+            DeviceActions.addDevice(socket);
 
             socket.on('disconnect', () => {
-              DeviceActions.socketDisconnect(socket);
+              DeviceActions.removeDevice(socket.id);
             });
           });
 
