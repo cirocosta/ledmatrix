@@ -8,7 +8,9 @@ var express = require('express');
 var ps = require('portscanner');
 var io = require('socket.io');
 var path = require('path');
-var {DeviceActions} = require('../actions');
+var AppStore = require('../stores/AppStore');
+var GameStore = require('../stores/GameStore');
+var {DeviceActions, GameActions} = require('../actions');
 
 var app = express();
 var DIRNAME = path.resolve(path.dirname(), './src/utils');
@@ -53,11 +55,39 @@ module.exports = {
           _io = io(server);
           _io.set('transports', 'websocket');
           _io.sockets.on('connection', (socket) => {
-            console.log(socket);
             DeviceActions.addDevice(socket);
+            socket.emit('change-AppStore', AppStore.getAppState());
+            socket.emit('change-GameStore', GameStore.getGameState());
+
+            var onGameStoreChange = () =>
+              socket.emit('change-GameStore', GameStore.getGameState());
+
+            var onAppStoreChange = () =>
+              socket.emit('change-AppStore', AppStore.getAppState());
+
+            AppStore.addChangeListener(onAppStoreChange);
+            GameStore.addChangeListener(onGameStoreChange);
 
             socket.on('disconnect', () => {
               DeviceActions.removeDevice(socket.id);
+              AppStore.removeChangeListener(onAppStoreChange);
+              GameStore.removeChangeListener(onGameStoreChange);
+            });
+
+            socket.on('direction', (data) => {
+              GameActions.changeDirection(data.direction);
+            });
+
+            socket.on('game-control', (data) => {
+              switch (data.control) {
+                case 'start':
+                  GameActions.startGame();
+                  break;
+
+                case 'reset':
+                  GameActions.resetGame();
+                  break;
+              }
             });
           });
 

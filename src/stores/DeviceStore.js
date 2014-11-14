@@ -37,10 +37,6 @@ var DeviceStore = assign({
     };
   },
 
-  // getSingleDeviceState (id) {
-  //   devices.filter()
-  // },
-
   dispatcherIndex: AppDispatcher.register((payload) => {
     var {action} = payload;
 
@@ -75,6 +71,10 @@ var DeviceStore = assign({
 
         DeviceStore.emitChange();
         break;
+
+      /**
+       * Intercepting Matrix Events
+       */
 
       case CONSTANTS.Matrix.UPDATE:
         _writeToDevices(_devices, action.matrix, 0);
