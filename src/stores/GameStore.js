@@ -6,15 +6,15 @@
  */
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var SnakeGame = require('matrix-snake');
 var {MatrixActions, GameActions} = require('../actions');
+var CONSTANTS = require('../constants');
 var AppStore = require('./AppStore');
 var Store = require('./Store');
-var CONSTANTS = require('../constants');
+
 var assign = require('object-assign');
+var SnakeGame = require('matrix-snake');
 var rafLoop = require('../utils/rafLoop')(5);
 var ledNumbers = require('../utils/ledNumbers');
-var keymaster = require('keymaster');
 
 var _gameState = {
   running: false,
@@ -24,38 +24,12 @@ var _gameState = {
 var _cbObj = new SnakeGame.CbObj();
 var _game;
 
-var _attachKeyHandlers = () => {
-  keymaster('w,a,s,d', function (e, obj) {
-    switch (obj.shortcut) {
-      case 'w':
-      _cbObj.emitDir('up');
-      break;
-      case 's':
-      _cbObj.emitDir('down');
-      break;
-      case 'a':
-      _cbObj.emitDir('left');
-      break;
-      case 'd':
-      _cbObj.emitDir('right');
-      break;
-    }
-  });
-};
-
-var _detachKeyHandlers = () => {
-  ['w','a','s','d'].forEach(function (key) {
-    keymaster.unbind(key);
-  });
-};
-
 AppStore.addChangeListener(() => {
   if (_gameState.running &&
       AppStore.getAppState().ctrl !== CONSTANTS.App.CTRL_SNAKE) {
     GameActions.stopGame();
   }
 });
-
 
 var GameStore = assign({
   getGameState: () => _gameState,
@@ -64,11 +38,17 @@ var GameStore = assign({
     var action = payload.action;
 
     switch (action.actionType) {
+      case CONSTANTS.Game.CHANGE_DIRECTION:
+        if (!_gameState.running)
+          return;
+
+        _cbObj.emitDir(action.direction);
+        break;
+
       case CONSTANTS.Game.START:
         if (_gameState.running)
           return;
 
-        _attachKeyHandlers();
         _game = SnakeGame.prepare(10, 10, _cbObj, GameActions.fruitEaten, GameActions.crash);
         _gameState.running = true;
 
@@ -88,7 +68,6 @@ var GameStore = assign({
         break;
 
       case CONSTANTS.Game.STOP:
-        _detachKeyHandlers();
         _gameState.running = false;
         cancelAnimationFrame(rafLoop.rAFid);
 

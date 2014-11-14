@@ -9,7 +9,12 @@ var cfg = {
     filename: 'main.js',
   },
   externals: {
-    yaspm: 'commonjs yaspm'
+    yaspm: 'commonjs yaspm',
+    mdns: 'commonjs mdns',
+    express: 'commonjs express',
+    'socket.io': 'commonjs socket.io',
+    portscanner: 'commonjs portscanner',
+    qrcode: 'commonjs qrcode',
   },
   target: process.env.NODE_ENV === 'web' ? 'web' : 'node-webkit',
   module: {
@@ -28,12 +33,7 @@ var cfg = {
         loader: 'jsx-loader?harmony'
       }
     ]
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      '__NODEWEBKIT__': process.env.NODE_ENV === 'nodewebkit',
-    })
-  ]
+  }
 };
 
 module.exports = cfg;

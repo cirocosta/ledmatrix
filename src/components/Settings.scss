@@ -1,4 +1,45 @@
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-1.25rem);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+
+
 .Settings {
+  details[open] {
+    -webkit-animation-name: fadeInDown;
+    -webkit-animation-duration: 0.5s;
+  }
+
+  details {
+    margin-top: 1rem;
+    padding: 1.4rem;
+    text-align: left;
+    margin-bottom: 0.25rem;
+    line-height: 1.25;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  summary {
+    clear: both;
+    font-size: 2.7rem;
+    color: rgb(82, 82, 82);
+    font-weight: bolder;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
   p.details {
     color: black;
     font-style: italic;
@@ -12,5 +53,24 @@
 
   li {
     cursor: pointer;
+  }
+
+  button {
+    float: left;
+    border: none;
+    background: #ACC28B;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.8rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #D3E4BA;
+    }
+
+    &:active {
+      background-color: #9FB185;
+    }
   }
 }

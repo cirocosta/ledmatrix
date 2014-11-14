@@ -32,6 +32,13 @@ var GameActions = {
       fruits: fruits
     });
   },
+
+  changeDirection (direction) {
+    AppDispatcher.handleViewAction({
+      actionType: CONSTANTS.Game.CHANGE_DIRECTION,
+      direction: direction
+    });
+  },
 };
 
 module.exports = GameActions;

@@ -6,6 +6,7 @@
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var DeviceManager = require('../utils/DeviceManager');
+var SocketsManager = require('../utils/SocketsManager');
 var CONSTANTS = require('../constants');
 var GameStore = require('./GameStore');
 var assign = require('object-assign');
@@ -13,22 +14,26 @@ var Store = require('./Store');
 
 var isEmpty = (obj) => obj ? !Object.keys(obj).length : true;
 
-
 DeviceManager.init();
 
+// info about sockets connection
+var _sockets = {'connection': null, url: null};
+// physical devices (arduinos) connected through
+// serialport as well as socket connections.
 var _devices = {};
-var _priority = 0;
 
-var writeToDevices = (devices, matrix) => {
+var _writeToDevices = (devices, matrix, priority) => {
   for (var id in devices)
-    DeviceManager.writeMatrix(_devices[id], matrix);
+    if (_devices[id].priority === priority)
+      DeviceManager.writeMatrix(_devices[id], matrix);
 };
+
 
 var DeviceStore = assign({
   getDevicesState () {
     return {
       devices: _devices,
-      priority: _priority
+      sockets: _sockets,
     };
   },
 
@@ -36,8 +41,20 @@ var DeviceStore = assign({
     var {action} = payload;
 
     switch (action.actionType) {
+      case CONSTANTS.Device.EXPOSE_TO_LOCAL:
+        _sockets.connection = SocketsManager.init().then((url) => {
+          _sockets.url = url;
+          DeviceStore.emitChange();
+        }, (err) => {
+          console.warn('An error arised on SocketsManager init: ', err);
+        });
+
+        DeviceStore.emitChange();
+        break;
+
       case CONSTANTS.Device.ADD:
-        _devices[action.device.pnpId] = action.device;
+        _devices[action.device.id] = action.device;
+        _devices[action.device.id].priority = 0;
         DeviceStore.emitChange();
         break;
 
@@ -49,21 +66,22 @@ var DeviceStore = assign({
         DeviceStore.emitChange();
         break;
 
+      case CONSTANTS.Device.TOGGLE_PRIORITY:
+        _devices[action.id].priority = +!_devices[action.id].priority;
+
+        DeviceStore.emitChange();
+        break;
+
+      /**
+       * Intercepting Matrix Events
+       */
+
       case CONSTANTS.Matrix.UPDATE:
-        if (_priority !== 1)
-          writeToDevices(_devices, action.matrix);
+        _writeToDevices(_devices, action.matrix, 0);
         break;
 
       case CONSTANTS.Matrix.UPDATE_EXTEND:
-        console.log(action);
-        if (_priority === 1)
-          writeToDevices(_devices, action.matrix);
-        break;
-
-      case CONSTANTS.Device.SET_PRIORITY:
-        _priority = action.priority;
-
-        DeviceStore.emitChange();
+        _writeToDevices(_devices, action.matrix, 1);
         break;
     }
 

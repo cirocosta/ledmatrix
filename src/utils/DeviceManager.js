@@ -37,8 +37,12 @@ var writeMatrix = (device, matrix) => {
 /**
  * Connect and Disconnect handlers
  */
-var handleConnect = (device) =>
-  DeviceActions.addDevice({device: device});
+var handleConnect = (device) => {
+  device.id = device.pnpId;
+  device.type = 'vis';
+  DeviceActions.addDevice(device);
+};
+
 var handleDisconnect = (id) =>
   DeviceActions.removeDevice(id);
 

@@ -5,6 +5,8 @@ module.exports = keyMirror('GAME', {
   RESET: false,
   STOP: false,
 
+  CHANGE_DIRECTION: false,
+
   FRUIT_EATEN: false,
   CRASH: false,
 });

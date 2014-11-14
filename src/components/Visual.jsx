@@ -11,6 +11,7 @@ var {MatrixStore, AppStore} = require('../stores');
 var ReactMatrix = require('react-matrix/dist/react-matrix.js');
 var PreMatrix = require('./PreMatrix.jsx');
 
+require('../utils/KeyboardManager').init();
 
 var Visual = React.createClass({
   mixins: [storesGlueMixin(MatrixStore, AppStore)],
@@ -39,7 +40,6 @@ var Visual = React.createClass({
           GameActions.resetGame();
         else if (type === CONSTANTS.Game.START)
           GameActions.startGame();
-
         break;
     }
   },
